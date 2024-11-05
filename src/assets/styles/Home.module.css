@@ -1,0 +1,21 @@
+.container{
+
+    background-image: url('../images/appBackground.png');
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    width: 100%;
+    position: relative;
+    
+}
+
+.centerContent {
+    position: absolute;
+    bottom: 50%;
+    left: 39%;
+    color: rgb(2, 3, 15); /* Or any color that stands out against the background */
+    font-size: 3rem; /* Adjust size for elegance */
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Add shadow for readability */
+}

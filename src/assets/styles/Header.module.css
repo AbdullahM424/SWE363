@@ -1,0 +1,26 @@
+.header {
+    display: flex;
+    justify-content: space-around; /* Distribute buttons evenly, first and last at the edges */
+    align-items: center; /* Center the buttons vertically */
+    width: 100%; /* Full width of the page */
+    padding: 10px 10px 10px 10px ; /* No padding to align buttons with the page border */
+    box-sizing: border-box; /* Include padding in the width calculation */
+  }
+  
+  .headerButton {
+    background-color: black; /* Button background */
+    color: white; /* Button text color */
+    border: none; /* Remove button border */
+    font-size: 26px; /* Larger font size */
+    padding: 20px 50px; /* Larger padding for bigger buttons */
+    border-radius: 10px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s, color 0.3s; /* Smooth transition for hover */
+    font-family: 'Times New Roman', Times, serif;
+  }
+  
+  .headerButton:hover {
+    background-color: white; /* Hover background color */
+    color: black; /* Hover text color */
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5); /* Slightly bigger shadow on hover */
+  }
