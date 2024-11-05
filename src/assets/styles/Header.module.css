@@ -1,9 +1,9 @@
 .header {
     display: flex;
-    justify-content: space-around; /* Distribute buttons evenly, first and last at the edges */
+    justify-content: space-between; /* Distribute buttons evenly, first and last at the edges */
     align-items: center; /* Center the buttons vertically */
     width: 100%; /* Full width of the page */
-    padding: 10px 10px 10px 10px ; /* No padding to align buttons with the page border */
+    padding: 20px 20px 10px 10px ; /* No padding to align buttons with the page border */
     box-sizing: border-box; /* Include padding in the width calculation */
   }
   
@@ -11,8 +11,8 @@
     background-color: black; /* Button background */
     color: white; /* Button text color */
     border: none; /* Remove button border */
-    font-size: 26px; /* Larger font size */
-    padding: 20px 50px; /* Larger padding for bigger buttons */
+    font-size: 36px; /* Larger font size */
+    padding: 20px 60px; /* Larger padding for bigger buttons */
     border-radius: 10px; /* Rounded corners */
     cursor: pointer; /* Pointer cursor on hover */
     transition: background-color 0.3s, color 0.3s; /* Smooth transition for hover */
