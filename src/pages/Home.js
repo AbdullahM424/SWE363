@@ -3,11 +3,23 @@ import styles from "../assets/styles/Home.module.css";
 import Header from "../components/common/Header.js"
 import Category from "../components/Category";
 function Home(){
+    const title = "Our Services!";
     return(
         <div className = {styles.container}>
             <Header></Header>
             <div className={styles.centerContent}>
-                <h1>Our Services!</h1> 
+                {/* <h1>Our Services!</h1>  */}
+                <h1>
+                    {title.split("").map((letter, index) => (
+                       <span
+                       key={index}
+                       className={styles.animatedLetter}
+                       style={{ animationDelay: `${index * 0.1}s` }}
+                   >
+                       {letter === " " ? "\u00A0" : letter}
+                   </span>
+                    ))}
+                </h1>
             </div>
             <div className={styles.categoryContainer}>
                 <Category title = "Facilities"></Category>

@@ -45,3 +45,20 @@
     max-width: 90%; /* Limit the width of the container */
 }
 
+.animatedLetter {
+    opacity: 0; /* Start invisible */
+    display: inline-block;
+    animation: fadeIn 0.5s forwards; /* Animation to fade in */
+}
+
+/* Define the fade-in animation */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px); /* Optional: Add a slide effect */
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0); /* Return to original position */
+    }
+}

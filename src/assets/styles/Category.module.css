@@ -1,5 +1,6 @@
 /* src/assets/styles/Category.module.css */
 .card {
+    opacity: 0.95;
     background-color: white;
     padding: 30px;
     border-radius: 10px;
