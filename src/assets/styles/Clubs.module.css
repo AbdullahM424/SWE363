@@ -11,3 +11,60 @@
     flex-direction: column;
     align-items: center;
 }
+
+
+.clubsGrid {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 equal columns */
+    gap: 20px; /* Space between cards */
+    padding: 20px;
+    width: 100%;
+    max-width: 1200px; /* Optional: limits the grid's width for better alignment */
+    bottom: -40%;
+}
+.addClubButton {
+    position: absolute; /* Position relative to container */
+    top: 80px; /* Adjust as needed based on header height */
+    right: 20px; /* Distance from the right edge */
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    background-color: #0e325c; /* Elegant blue color */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s, transform 0.3s;
+    animation: dropIn 1.25s ease-out forwards; /* Bounce animation */
+}
+
+.addClubButton:hover {
+    background-color: #213d58; /* Darker blue on hover */
+    transform: translateY(-2px); /* Slight lift on hover */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-5px); /* Move up slightly */
+    }
+}
+
+@keyframes dropIn {
+    0% {
+        transform: translate(-200px, -100vh); /* Start above and to the left */
+        opacity: 0;
+    }
+    50% {
+        transform: translate(20px, 30px); /* Intermediate position */
+        opacity: 0.5;
+    }
+    100% {
+        transform: translate(0, 0); /* Final position */
+        opacity: 1;
+    }
+}

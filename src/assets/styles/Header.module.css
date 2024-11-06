@@ -23,7 +23,7 @@
   padding: 10px 20px; /* Adjusted padding for button size */
   border-radius: 5px; /* Subtle rounding of corners */
   cursor: pointer;
-  font-family: 'Times New Roman', Times, serif;
+  font-family: "Arial";
   transition: background-color 0.3s, color 0.3s, transform 0.2s; /* Smooth hover effects */
 }
 
