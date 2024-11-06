@@ -1,0 +1,58 @@
+/* src/assets/styles/Category.module.css */
+.card {
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    width: 175px; /* Set a consistent width for each card */
+    height: 110px;
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+    font-family: 'Times New Roman'
+}
+.card:hover {
+    transform: translateY(-20px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.cardLabel {
+    box-shadow:  0 0 15px rgba(0, 0, 0, 0.5);
+    position: relative;
+    bottom: -100px;
+    background-color: rgba(7, 0, 21, 0.747); /* Dark background with transparency */
+    color: white; /* Make the text color white for contrast */
+    padding: 5px 10px; /* Add padding around the text */
+    border-radius: 5px; /* Round the corners */
+    font-size: 1rem; /* Adjust the font size as needed */
+    font-weight: bold;
+}
+.Facilities {
+    background-image: url('../images/facilities.png');
+    background-size: 50%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.Clubs {
+    background-image: url('../images/clubs.png');
+    background-size: 50%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.Courses {
+    background-image: url('../images/courses.png');
+    background-size: 50%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.Instructors {
+    background-image: url('../images/instructors.png');
+    background-size: 50%;
+    background-position: center;
+    background-repeat: no-repeat;
+}

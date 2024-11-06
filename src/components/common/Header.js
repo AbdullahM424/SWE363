@@ -3,7 +3,6 @@ import styles from "../../assets/styles/Header.module.css";
 
 
 function Header(){
-
     return (
         <div className={styles.header}>
           <button className={styles.headerButton}>Facilities</button>

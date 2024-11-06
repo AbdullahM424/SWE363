@@ -1,6 +1,6 @@
 .header {
     display: flex;
-    justify-content: space-between; /* Distribute buttons evenly, first and last at the edges */
+    justify-content: space-around; /* Distribute buttons evenly, first and last at the edges */
     align-items: center; /* Center the buttons vertically */
     width: 100%; /* Full width of the page */
     padding: 20px 20px 10px 10px ; /* No padding to align buttons with the page border */
