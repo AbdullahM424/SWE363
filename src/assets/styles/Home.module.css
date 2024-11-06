@@ -15,14 +15,6 @@
     align-items: center;
 }
 
-.header {
-    display: flex;
-    justify-content: center;
-    gap: 20px; /* Add space between buttons */
-    margin-bottom: 30px; /* Space below the header buttons */
-    width: 100%;
-    padding: 10px 0;
-}
 
 .centerContent {
     position: relative;
@@ -48,12 +40,12 @@
 .animatedLetter {
     opacity: 0; /* Start invisible */
     display: inline-block;
-    animation: fadeIn 0.5s forwards; /* Animation to fade in */
+    animation: fadeIn 0.5s ease-in-out forwards; /* Animation to fade in */
 }
 
 /* Define the fade-in animation */
 @keyframes fadeIn {
-    0% {
+    0% {/* 0% means at the beginning of the animation and so on.. */
         opacity: 0;
         transform: translateY(-20px); /* Optional: Add a slide effect */
     }
@@ -62,3 +54,4 @@
         transform: translateY(0); /* Return to original position */
     }
 }
+

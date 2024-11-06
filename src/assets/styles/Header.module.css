@@ -1,26 +1,40 @@
 .header {
-    display: flex;
-    justify-content: space-around; /* Distribute buttons evenly, first and last at the edges */
-    align-items: center; /* Center the buttons vertically */
-    width: 100%; /* Full width of the page */
-    padding: 20px 20px 10px 10px ; /* No padding to align buttons with the page border */
-    box-sizing: border-box; /* Include padding in the width calculation */
-  }
-  
-  .headerButton {
-    background-color: black; /* Button background */
-    color: white; /* Button text color */
-    border: none; /* Remove button border */
-    font-size: 36px; /* Larger font size */
-    padding: 20px 60px; /* Larger padding for bigger buttons */
-    border-radius: 10px; /* Rounded corners */
-    cursor: pointer; /* Pointer cursor on hover */
-    transition: background-color 0.3s, color 0.3s; /* Smooth transition for hover */
-    font-family: 'Times New Roman', Times, serif;
-  }
-  
-  .headerButton:hover {
-    background-color: white; /* Hover background color */
-    color: black; /* Hover text color */
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5); /* Slightly bigger shadow on hover */
-  }
+  opacity: 0.6;
+  position: fixed; /* Fix the header at the top of the page */
+  top: 0;
+  left: 0;
+  width: 100%; /* Full width of the page */
+  display: flex;
+  justify-content: space-around; /* Distribute buttons evenly across the width */
+  align-items: center;
+  background-color: #0c0c0c; /* Dark background color for the app bar */
+  padding: 15px 20px; /* Padding inside the header */
+  box-sizing: border-box; /* Include padding in the width calculation */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for elevation */
+  z-index: 1000; /* Ensure the header is on top of other elements */
+  transition: background-color 0.3s ease; /* Smooth background color transition */
+}
+
+.headerButton {
+  background-color: #312d2d; /* Slightly lighter than the header background */
+  color: white;
+  border: none;
+  font-size: 18px; /* Moderate font size for elegance */
+  padding: 10px 20px; /* Adjusted padding for button size */
+  border-radius: 5px; /* Subtle rounding of corners */
+  cursor: pointer;
+  font-family: 'Times New Roman', Times, serif;
+  transition: background-color 0.3s, color 0.3s, transform 0.2s; /* Smooth hover effects */
+}
+
+.headerButton:hover {
+  background-color: #555; /* Darker background color on hover */
+  color: #ddd; /* Slightly lighter text color on hover */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Elevate on hover */
+  transform: translateY(-2px); /* Slight lift on hover */
+}
+
+.headerButton:active {
+  transform: translateY(0); /* Return to normal position on click */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Slightly smaller shadow on click */
+}
