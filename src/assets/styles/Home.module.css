@@ -55,3 +55,11 @@
     }
 }
 
+.faqIcon {
+    width: 60px; /* Adjust the size as needed */
+    height: 60px; /* Keep the aspect ratio */
+    cursor: pointer;
+    position: absolute; /* Position the image absolutely */
+    top: 100px; /* Adjust to be right under the header */
+    left: 20px; /* Adjust as needed to align on the left */
+}
