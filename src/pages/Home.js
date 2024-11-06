@@ -2,6 +2,7 @@ import React from 'react';
 import styles from "../assets/styles/Home.module.css"; 
 import Header from "../components/common/Header.js"
 import Category from "../components/Category";
+import {Link} from "react-router-dom";
 function Home(){
     const title = "Our Services!";
     return(// the unicode "u00A0" is a white space
@@ -22,7 +23,9 @@ function Home(){
             </div>
             <div className={styles.categoryContainer}>
                 <Category title = "Facilities"></Category>
-                <Category title = "Clubs"></Category>
+                <Link to="/clubs" style={{ textDecoration: 'none' }}>
+                    <Category title="Clubs" />
+                </Link>
                 <Category title = "Courses"></Category>
                 <Category title = "Instructors"></Category>
                 </div>

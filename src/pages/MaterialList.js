@@ -38,7 +38,7 @@ const MaterialList = ({ selectedLayout, isAdmin }) => {
       { title: "Experience 4", description: "Details of Experience 2", total: "90", rating: 1 }
     ]
   });
-
+  //dummy Icons
   const icons = {
     "Slides Notes": slidesIcon,
     "Old Exams": examsIcon,
@@ -61,7 +61,6 @@ const MaterialList = ({ selectedLayout, isAdmin }) => {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-
     URL.revokeObjectURL(url);
   };
 
