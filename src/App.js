@@ -16,9 +16,6 @@ function App() {//the root if the application, sees all the changes in the url
         <Route path = "/instructors" element={<Instructors></Instructors>}></Route>
       </Routes>
     </Router>
- 
-    
-
    </div>
   );
 }
