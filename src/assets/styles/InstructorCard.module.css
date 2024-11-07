@@ -1,0 +1,70 @@
+.card {
+    opacity: 0.97;
+    width: 200px;
+    padding: 20px;
+    border-radius: 8px;
+    background-color: #1b1b1b; /* Piano black */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    color: #ffffff;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+    opacity: 0; /* Initial opacity for fade-in */
+    animation: fadeInUp 0.5s ease forwards;
+    animation-delay: calc(var(--card-index) * 0.1s); /* Staggered effect */
+}
+.card:hover {
+    transform: translateY(-20px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.divider {
+    width: 80%;
+    border: none;
+    height: 2px;
+    background-color: #00eaff; /* Laser blue divider line */
+    margin: 10px 0;
+}
+
+.info {
+    text-align: center;
+}
+
+.name {
+    font-size: 18px;
+    margin: 0;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+.department {
+    font-size: 14px;
+    color: #00eaff; /* Laser blue for department */
+}
+
+.rating {
+    display: flex;
+    gap: 2px;
+    margin-top: 10px;
+}
+
+.filledStar {
+    color: #FFD700; /* Gold color for filled stars */
+}
+
+.emptyStar {
+    color: #444444; /* Dark gray for empty stars */
+}
+
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
