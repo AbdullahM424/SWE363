@@ -9,14 +9,15 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 function App() {//the root if the application, sees all the changes in the url
   return (
    <div>
-    {/* <Router>
+    <Router>
       <Routes>
         <Route path = "/" element = {<Home></Home>}> </Route>
         <Route path ="/clubs" element = {<Clubs></Clubs>}></Route>
+        <Route path = "/instructors" element={<Instructors></Instructors>}></Route>
       </Routes>
-    </Router> */}
+    </Router>
  
-    <Instructors></Instructors>
+
 
    </div>
   );

@@ -29,7 +29,11 @@ function Home(){
                     <Category title="Clubs" />
                 </Link>
                 <Category title = "Courses"></Category>
+                <Link to = "/instructors">
                 <Category title = "Instructors"></Category>
+                </Link>
+                
+              
                 </div>
 
         </div>
