@@ -11,16 +11,24 @@
     background-size: cover;
     background-position:center ;
 }
-
+.rotated {
+    transform: rotateY(180deg);
+  }
 /* Main content area */
 .theBody {
     width: 100%;
     max-width: 1200px;
     padding: 20px;
-   background-color: rgba(255, 255,255,0);
-    
+    background-color: rgba(255, 255, 255, 0.8);
+    transition: transform 0.6s;
     border-radius: 8px;
     backdrop-filter: blur(5px);
+    transform-style: preserve-3d; /* Ensures 3D effect */
+}
+
+.rotated .theCard, 
+.rotated .formCard {
+  transform: rotateY(180deg); /* Flips content back upright */
 
 }
 
@@ -29,25 +37,31 @@
     text-align: center;
     padding: 20px;
     background-color: rgba(50, 136, 92, 0.8);
-    
     color: white;
     border: 1px solid #ddd;
     border-radius: 8px;
     margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
 
 }
 
 /* Club logo image */
-.card img {
- 
+.theImg img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin-bottom: 15px;
+    object-fit: cover;
 }
 
 /* Name styling */
 .name {
     font-size: 40px;
     font-weight: bold;
-    color: #333;
+    color: #333333;
     margin: 10px 0;
+    text-transform: uppercase; 
 }
 
 /* Description styling */
@@ -58,13 +72,50 @@
     padding: 0 10px;
 }
 
+.editButt{
+    border: none;
+    border-radius: 10px;
+    color:black;
+    background-color: rgba(200, 200, 200, 0.7);
+    padding: 8px 15px;
+    right:100px; 
+    cursor: pointer;
+    position: relative;
+    bottom: 430px;
+    left:10px;
+}
+
+.editButt:hover {
+    background-color: rgba(180, 180, 180, 0.9);
+}
+
+
+.theImg{
+    display: 'flex';
+    justify-content: 'space-between';
+    align-items: 'center';
+    width: '100%'; 
+}
+
 /* Social media icons */
 .card a {
     font-size: 20px;
     color: #666;
     margin: 0 10px;
+    size: 100px;
     transition: color 0.3s;
 }
+.contactIcons a {
+    font-size: 30px;  /* Adjust this value as needed */
+    margin-right: 10px; /* Optional: Adds spacing between icons */
+    color: #333; /* Optional: Customize icon color */
+}
+
+.contactIcons a:hover {
+    color: #ffffff; /* Changes on hover */
+}
+
+
 
 .card a:hover {
     color: #007bff; /* Change to your brand's color */
@@ -78,6 +129,42 @@ h1 {
     margin: 20px 0;
 }
 
-.img{
- position: absolute;   
+.formCard {
+    text-align: left;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    color: #333;
 }
+
+.formCard label {
+    display: block;
+    font-size: 16px;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.formCard input[type="text"],
+.formCard textarea {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+}
+
+.formCard button[type="submit"] {
+    padding: 10px 20px;
+    background-color: #32885c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.formCard button[type="submit"]:hover {
+    background-color: #28704c;
+}
+

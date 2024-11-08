@@ -9,6 +9,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import LoginFormm from './pages/LoginForm.js';
 import SingupForm from './pages/SingupForm.js';
 import ClubsProfile from './pages/ClubsProfile.js'
+import 
 
 function App() {//the root if the application, sees all the changes in the url
   return (
@@ -20,9 +21,8 @@ function App() {//the root if the application, sees all the changes in the url
         <Route path ="/clubs" element = {<Clubs></Clubs>}></Route>
         <Route path = "/instructors" element={<Instructors></Instructors>}></Route>
       </Routes>
-    </Router>
-   */}
-    <ClubsProfile />
+    </Router>*/}
+
    </div>
 
   );
