@@ -16,10 +16,13 @@ function App() {//the root if the application, sees all the changes in the url
       </Routes>
     </Router> */}
  
-    <Instructors></Instructors>
+ <Material selectedLayout="Experiences" isAdmin={false} />
+
 
    </div>
   );
 }
-
+// Experiences
+// Old Exams
+// Slides Notes
 export default App;
