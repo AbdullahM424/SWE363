@@ -1,7 +1,8 @@
 import React from 'react'
 import { Accordion } from 'react-bootstrap'
+
 function Announcement(props) {
- import('bootstrap/dist/css/bootstrap.min.css');
+import('bootstrap/dist/css/bootstrap.min.css');
 
   return (
     <div>

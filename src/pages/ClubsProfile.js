@@ -4,10 +4,8 @@ import { FaXTwitter } from "react-icons/fa6";
 import React, { useState } from 'react';
 import Announcement from "../components/Announcement";
 import Accordion from 'react-bootstrap/Accordion';
-import { CgProfile } from "react-icons/cg";
-const defaultImg = "../";
-
-
+import Header from "../components/common/Header.js"
+const defaultImg = "SWE363/src/assets/images/clubeProfileImg.png";
 
 const ClubeProfile = () =>{
  
@@ -38,20 +36,26 @@ const ClubeProfile = () =>{
 
 
 return(
-    <div className={style.thePage}>
+  <div className={style.thePage}>
+      
+
         <div className={style.theBody}>
-        <div className={style.card}>
-            <img src="src/assets/images/clubeProfileImg.png"  alt = "The clube Loge" />
+        <div className={style.theCard}>
+          <div className={style.img}>
+            <img src={defaultImg}  alt = "The clube Loge" />
+          </div>
             <p className= {style.name} > the name</p>
             <p className={style.descripation}>{descripation} </p>
-            <a herf = "#"><FaWhatsapp /></a>
-            <a herf = "#"><FaInstagram /></a>
-            <a herf = "#"><FaXTwitter /></a>
+            <a href  = "#"><FaWhatsapp /></a>
+            <a href  = "#"><FaInstagram /></a>
+            <a href  = "#"><FaXTwitter /></a>
 
         </div>
+
+
         <h1>Announcement</h1>
         <div 
-        className={style.card}
+        className={style.theCard}
         style={{
             maxHeight: '400px',
             overflowY: 'auto',
