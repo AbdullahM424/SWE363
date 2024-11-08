@@ -18,6 +18,7 @@ function Clubs(){
     const [filteredClubs, setFilteredClubs] = useState(dummyClubs);
     const handleSearch = (event) => {
         const term = event.target.value.toLowerCase();
+        // for the search bar
         setSearchTerm(term);
         setFilteredClubs(
             dummyClubs.filter((club) => club.name.toLowerCase().includes(term))
