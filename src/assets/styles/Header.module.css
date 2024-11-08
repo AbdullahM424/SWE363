@@ -1,40 +1,40 @@
 .header {
-  opacity: 0.6;
-  position: fixed; /* Fix the header at the top of the page */
+  opacity: 0.9; /* Increased opacity for a solid look */
+  position: fixed;
   top: 0;
   left: 0;
-  width: 100%; /* Full width of the page */
+  width: 100%;
   display: flex;
-  justify-content: space-around; /* Distribute buttons evenly across the width */
+  justify-content: space-around;
   align-items: center;
-  background-color: #0c0c0c; /* Dark background color for the app bar */
-  padding: 15px 20px; /* Padding inside the header */
-  box-sizing: border-box; /* Include padding in the width calculation */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for elevation */
-  z-index: 1000; /* Ensure the header is on top of other elements */
-  transition: background-color 0.3s ease; /* Smooth background color transition */
+  background-color: #0a0a0a; /* Piano black background */
+  padding: 10px 15px; /* Reduced padding for a slimmer bar */
+  box-sizing: border-box;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3); /* Slight shadow for subtle elevation */
+  z-index: 1000;
+  transition: background-color 0.3s ease;
 }
 
 .headerButton {
-  background-color: #312d2d; /* Slightly lighter than the header background */
-  color: white;
+  background-color: #1c1c1c; /* Darker button background to blend with header */
+  color: #ffffff;
   border: none;
-  font-size: 18px; /* Moderate font size for elegance */
-  padding: 10px 20px; /* Adjusted padding for button size */
-  border-radius: 5px; /* Subtle rounding of corners */
+  font-size: 16px; /* Slightly smaller font size for a sleek look */
+  padding: 8px 16px; /* Adjusted padding for a more compact button */
+  border-radius: 4px; /* Subtle rounding */
   cursor: pointer;
-  font-family: "Arial";
-  transition: background-color 0.3s, color 0.3s, transform 0.2s; /* Smooth hover effects */
+  font-family: "Arial", sans-serif;
+  transition: background-color 0.3s, color 0.3s, transform 0.2s;
 }
 
 .headerButton:hover {
-  background-color: #555; /* Darker background color on hover */
-  color: #ddd; /* Slightly lighter text color on hover */
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Elevate on hover */
-  transform: translateY(-2px); /* Slight lift on hover */
+  background-color: #333333; /* Slightly lighter background on hover */
+  color: #e0e0e0; /* Subtle change in text color on hover */
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.4); /* Elevate slightly on hover */
+  transform: translateY(-1px); /* Gentle lift on hover */
 }
 
 .headerButton:active {
-  transform: translateY(0); /* Return to normal position on click */
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Slightly smaller shadow on click */
+  transform: translateY(0); /* Return to position on click */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Smaller shadow on click */
 }
