@@ -1,4 +1,6 @@
+
 /* Overall page styling */
+
 .thePage {
     display: flex;
     justify-content: center;
@@ -81,7 +83,7 @@
     right:100px; 
     cursor: pointer;
     position: relative;
-    bottom: 430px;
+    bottom: 250px;
     left:10px;
 }
 
@@ -122,7 +124,7 @@
 }
 
 /* Announcements section */
-h1 {
+.theTitle {
     font-size: 28px;
     color: #333;
     text-align: center;
@@ -168,3 +170,41 @@ h1 {
     background-color: #28704c;
 }
 
+.addAnnouncement {
+    text-align: left;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    color: #333;
+}
+
+.addAnnouncement label {
+    display: block;
+    font-size: 16px;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.addAnnouncement input[type="text"],
+.addAnnouncement textarea {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+}
+
+.addAnnouncement button[type="submit"] {
+    padding: 10px 20px;
+    background-color: #32885c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.addAnnouncement button[type="submit"]:hover {
+    background-color: #28704c;
+}

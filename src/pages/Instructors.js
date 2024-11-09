@@ -24,7 +24,7 @@ function Instructors(){
         { name: "Alexander", department: "Anthropology", rating: 5 },
         { name: "Charlotte", department: "Law", rating: 4 },
         { name: "Daniel", department: "Engineering", rating: 5 },
-        { name: "Grace", department: "Environmental Science", rating: 4 }
+        { name: "Grace", department: "Environmental Science", rating: 4 },
     ];
     return (
         <div className={styles.container}>

@@ -110,8 +110,10 @@ const MaterialList = ({ selectedLayout, isAdmin }) => {
         />
       )}
 
-      <div className={styles.uploadSection}>
-        <span className={styles.uploadText}><b>Do you want to upload a file?</b></span>
+<div className={styles.uploadSection}>
+        <span className={styles.uploadText}>
+          <b>{selectedLayout === "Experiences" ? "Do you have an experience to share?" : "Do you want to upload a file?"}</b>
+        </span>
         <img
           src={uploadIcon}
           alt="Upload icon"
@@ -119,6 +121,7 @@ const MaterialList = ({ selectedLayout, isAdmin }) => {
           onClick={() => setIsModalOpen(true)}
         />
       </div>
+
 
       <UploadFormModal
         isOpen={isModalOpen}
@@ -129,6 +132,7 @@ const MaterialList = ({ selectedLayout, isAdmin }) => {
         fileDescription={fileDescription}
         setFileDescription={setFileDescription}
         setFile={setFile}
+        layoutType={selectedLayout} // Pass selectedLayout as layoutType
       />
     </div>
   );

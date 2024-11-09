@@ -4,6 +4,7 @@
     background-position: center;
     height: 100vh;
     width: 100%;
+    overflow-y: hidden;
     position: relative;
     padding: 20px;
     box-sizing: border-box;
@@ -23,6 +24,21 @@
     max-width: 1200px; /* Optional: limits the grid's width for better alignment */
     bottom: -40%;
 }
+
+.scrollableGrid {
+    flex: 1; /* Takes up the remaining space below the header */
+    width: 100%;
+    overflow-y: auto; /* Allows scrolling only within the grid */
+
+    margin-top: 150px;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    box-sizing: border-box;
+    justify-items: center; /* Centers each card within its grid cell */
+    align-items: start; /* Aligns items at the top of the grid */
+}
+
 .addClubButton {
     position: absolute; /* Position relative to container */
     top: 80px; /* Adjust as needed based on header height */
@@ -67,4 +83,31 @@
         transform: translate(0, 0); /* Final position */
         opacity: 1;
     }
+}
+
+
+.searchBar {
+    position: absolute;
+    width: 90%;
+    max-width: 450px;
+    border-style: solid;
+    padding: 10px;
+    margin-bottom: 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    background-color: #0a0a0a; /* Piano black background */
+    color: #ffffff; /* White text */
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for elevation */
+    transition: box-shadow 0.3s ease;
+}
+
+.searchBar::placeholder {
+    color: #888888; /* Lighter color for placeholder text */
+}
+
+.searchBar:focus {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Slightly elevated shadow on focus */
 }
