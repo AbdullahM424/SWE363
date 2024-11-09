@@ -6,7 +6,9 @@ import {Link} from "react-router-dom";
 function Header(){
     return (
         <div className={styles.header}>
-
+          <Link to ="/home">
+          <button className={styles.headerButton}>Home</button>
+          </Link>
           <Link to = "/facilities">
           <button className={styles.headerButton}>Facilities</button>
           </Link>

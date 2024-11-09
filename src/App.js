@@ -14,7 +14,7 @@ import SlideNotesPage from "./pages/SlideNotesPage.js";
 import OldExamsPage from "./pages/OldExamsPage.js";
 import ExperiencesPage from "./pages/ExperiencesPage.js";
 function App() {//the root if the application, sees all the changes in the url
-  const isAdmin = false;
+  const isAdmin = true;
   return (
    <div>
       <Router>
