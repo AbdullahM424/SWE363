@@ -1,4 +1,5 @@
 IMPORTANT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+This application is for KFUPM university students who want to know about the university, and access study material or have info about the facilities and student clubs offered in the university. 
 
 To execute the application first, clone the repository.
 After cloning the repository, you should install the dependencies by typing "npm install" in the root directory.
