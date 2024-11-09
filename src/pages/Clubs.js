@@ -3,7 +3,7 @@ import Header from "../components/common/Header.js"
 import styles from "../assets/styles/Clubs.module.css"
 import ClubCard from '../components/ClubCard.js';
 import  { useState } from 'react';
-
+import {Link} from "react-router-dom";
 function Clubs(){
     const dummyClubs = [
         { name: "Chess Club", url: "https://example.com/chess-club" },
@@ -42,7 +42,10 @@ function Clubs(){
                 {/* Clubs Grid */}
                 <div className={styles.clubsGrid}>
                     {filteredClubs.map((club, index) => (
-                        <ClubCard key={index} name={club.name} url={club.url} />
+                        <Link to = "/clubProfile" style={{ textDecoration: 'none' }}>
+                            <ClubCard key={index} name={club.name} url={club.url} />
+                        </Link>
+                        
                     ))}
                 </div>
             </div>

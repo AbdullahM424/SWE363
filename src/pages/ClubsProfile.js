@@ -1,4 +1,4 @@
-import style from "../assets/styles/ClubeProfile.module.css";
+import styles from "../assets/styles/ClubeProfile.module.css";
 import { FaWhatsapp, FaInstagram } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import React, { useState } from 'react';
@@ -52,25 +52,25 @@ const ClubeProfile = () => {
   };
 
   return (
-    <div className={style.thePage}>
+    <div className={styles.thePage}>
       <Header />
-      <div className={`${style.theBody} ${isRotated ? style.rotated : ''}`}>
+      <div className={`${styles.theBody} ${isRotated ? styles.rotated : ''}`}>
         {!isRotated ? (
           <div>
-            <div className={style.theCard}>
-              <div className={style.theImg}>
+            <div className={styles.theCard}>
+              <div className={styles.theImg}>
                 <img src={profileImage || defaultImg} alt="The club Logo" />
               </div>
-              <p className={style.name}>{name}</p>
-              <p className={style.description}>{description}</p>
-              <div className={style.contactIcons}>
+              <p className={styles.name}>{name}</p>
+              <p className={styles.description}>{description}</p>
+              <div className={styles.contactIcons}>
                 <a href={socialMedia.whatsapp} target="_blank" rel="noopener noreferrer"><FaWhatsapp /></a>
                 <a href={socialMedia.instagram} target="_blank" rel="noopener noreferrer"><FaInstagram /></a>
                 <a href={socialMedia.twitter} target="_blank" rel="noopener noreferrer"><FaXTwitter /></a>
               </div>
             </div>
-            <h1 className={style.theTitle}>Announcement</h1>
-            <div className={style.addAnnouncement}>
+            <h1 className={styles.theTitle}>Announcement</h1>
+            <div className={styles.addAnnouncement}>
               <form onSubmit={handleAddAnnouncement}>
                 <label>
                   <input
@@ -93,7 +93,7 @@ const ClubeProfile = () => {
                 <button type="submit">Add Announcement</button>
               </form>
             </div>
-            <div className={style.theCard} style={{ maxHeight: '400px', overflowY: 'auto' }}>
+            <div className={styles.theCard} style={{ maxHeight: '400px', overflowY: 'auto' }}>
               <Accordion>
                 {announcementsData.map((item, index) => (
                   <Announcement key={index} announcementsTitle={item.title} announcements={item.content} num={index} />
@@ -102,7 +102,7 @@ const ClubeProfile = () => {
             </div>
           </div>
         ) : (
-          <div className={style.formCard}>
+          <div className={styles.formCard}>
             <form onSubmit={handleSave}>
               <label>
                 <input
@@ -165,7 +165,7 @@ const ClubeProfile = () => {
           </div>
         )}
       </div>
-      <button className={style.editButt} onClick={() => setIsRotated(!isRotated)}>
+      <button className={styles.editButt} onClick={() => setIsRotated(!isRotated)}>
         <MdEdit /> Edit Profile
       </button>
     </div>

@@ -11,6 +11,7 @@ import ClubsProfile from './pages/ClubsProfile.js'
 import FacilitiesList from './pages/Facilities.js'
 import Error404 from './pages/Error404.js'
 import Facilities from "./pages/Facilities.js"
+import FaqPage from "./pages/FaqPage.js"
 function App() {//the root if the application, sees all the changes in the url
   return (
    <div>
@@ -20,9 +21,10 @@ function App() {//the root if the application, sees all the changes in the url
         <Route path = "/" element = {<Home />}> </Route>
         <Route path ="/clubs" element = {<Clubs></Clubs>}></Route>
         <Route path = "/instructors" element={<Instructors></Instructors>}></Route>
+        <Route path =  "/clubProfile" element = {<ClubsProfile></ClubsProfile>}></Route>
+        <Route path = "/faq" element = {<FaqPage></FaqPage>}></Route>
       </Routes>
     </Router>
-
    </div>
 
   );

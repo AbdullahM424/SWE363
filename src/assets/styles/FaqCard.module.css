@@ -1,0 +1,58 @@
+/* FaqCard.module.css */
+
+/* FaqCard.module.css */
+
+/* FaqCard.module.css */
+
+.card {
+    opacity: 0.90;
+    background-color: #000000; /* Piano black background */
+    border-radius: 30px;
+    padding: 15px;
+    margin: 10px 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Adds a shadow for a floating effect */
+    color: #00e5ff; /* Laser light blue text color */
+    width: 100%; /* Takes the full width of the container */
+    max-width: 600px; /* Optional: Limit max width */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateX(10px); /* Moves the card slightly to the right */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Adds a larger shadow on hover */
+}
+
+.cardHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    font-weight: bold;
+    color: #00e5ff; /* Laser light blue color for question */
+    font-size: 1.2rem;
+    padding: 10px;
+}
+
+.button {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: #00e5ff; /* Laser light blue color for + and - */
+    cursor: pointer;
+    outline: none;
+}
+.button:hover {
+    color: #ffffff; /* Change the color to white on hover */
+    background: none; /* Ensure background stays transparent */
+}
+
+.answer {
+    margin-top: 10px;
+    padding: 10px;
+    color: #00e5ff; /* Laser light blue color for answer text */
+    font-size: 1rem;
+    border-top: 1px solid #333; /* Divider for the answer */
+    display: flex;
+    justify-content: flex-start;
+    transition: all 0.3s ease;
+}

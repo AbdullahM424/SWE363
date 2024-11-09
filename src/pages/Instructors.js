@@ -1,9 +1,11 @@
-import React from 'react';
-import Header from "../components/common/Header.js"
-import styles from "../assets/styles/Instructors.module.css"
+import React, { useState } from 'react';
+import Header from "../components/common/Header.js";
+import styles from "../assets/styles/Instructors.module.css";
 import InstructorCard from '../components/InstructorCard.js';
+import InstructorModal from '../components/InstructorModal.js';
 
 function Instructors(){
+    const [selectedInstructor, setSelectedInstructor] = useState(null);
     const instructors = [
         { name: "Ahmed", department: "ICS", rating: 5 },
         { name: "Sarah", department: "Math", rating: 4 },
@@ -26,25 +28,40 @@ function Instructors(){
         { name: "Daniel", department: "Engineering", rating: 5 },
         { name: "Grace", department: "Environmental Science", rating: 4 },
     ];
+
+    const openModal = (instructor) => {
+        setSelectedInstructor(instructor);
+    };
+
+    const closeModal = () => {
+        setSelectedInstructor(null);
+    };
+
     return (
         <div className={styles.container}>
-            <Header></Header>
+            <Header />
             <div className={styles.scrollableGrid}>
-            <div className={styles.grid}>
+                <div className={styles.grid}>
                     {instructors.map((instructor, index) => (
                         <div key={index} style={{ '--card-index': index }}>
                             <InstructorCard 
                                 name={instructor.name}
                                 department={instructor.department}
                                 rating={instructor.rating}
+                                onClick={() => openModal(instructor)}
                             />
                         </div>
                     ))}
                 </div>
             </div>
+            {selectedInstructor && (
+                <InstructorModal 
+                    instructor={selectedInstructor} 
+                    onClose={closeModal} 
+                />
+            )}
         </div>
     );
-
 }
 
 export default Instructors;

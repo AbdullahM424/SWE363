@@ -27,7 +27,9 @@ function Home(){
                 <Category title = "Facilities"></Category>
                 </Link>
                
-                <img src= {faqIcon} alt ="Faq Icon" className={styles.faqIcon}></img>
+               <Link to = "/faq">
+               <img src= {faqIcon} alt ="Faq Icon" className={styles.faqIcon}></img>
+               </Link>
                 <Link to="/clubs" style={{ textDecoration: 'none' }}>
                     <Category title="Clubs" />
                 </Link>

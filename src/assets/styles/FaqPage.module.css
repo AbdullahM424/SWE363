@@ -1,0 +1,22 @@
+.container {
+    background-image: url('../images/appBackground.png');
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    width: 100%;
+    position: relative;
+    padding: 20px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.cardContainer {
+    align-self: flex-start; /* Aligns the card container to the left */
+    margin-top: 20vh; /* Places the card container slightly above the middle */
+    margin-left: 5vw; /* Adjusts the horizontal position to the left */
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Adds space between each card */
+}
