@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Header from "../components/common/Header.js";
 import styles from "../assets/styles/FacilityCard.module.css";
-import FaqCard from "../components/FaqCard.js";
+import FaqCard from '../components/FrequentQcard.js';
 
 function Facilities({ isAdmin }) { // Pass isAdmin prop to check if user is admin
   const [facilities, setFacilities] = useState([

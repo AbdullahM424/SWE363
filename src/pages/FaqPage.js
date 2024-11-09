@@ -2,7 +2,7 @@ import React from 'react';
 import Header from "../components/common/Header.js"
 import styles from "../assets/styles/FaqPage.module.css"
 import {Link} from "react-router-dom";
-import FaqCard from "../components/FaqCard.js";
+import FaqCard from '../components/FrequentQcard.js';
 
 
 function FaqPage() {
