@@ -1,0 +1,320 @@
+.main{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-image:url('../images/appBackground.png');
+  min-height: 100vh;
+  padding: 20px;
+
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes borderGlow {
+  0% {
+    border-color: rgba(144, 238, 144, 0);
+  }
+  50% {
+    border-color: rgba(144, 238, 144, 0.7);
+  }
+  100% {
+    border-color: rgba(144, 238, 144, 0);
+  }
+}
+
+@keyframes glowEffect {
+  0% {
+    box-shadow: 0 0 5px rgba(144, 238, 144, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 10px rgba(144, 238, 144, 1);
+  }
+  100% {
+    box-shadow: 0 0 5px rgba(144, 238, 144, 0.5);
+  }
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-image:url('../images/appBackground.png');
+  min-height: 100vh;
+  padding: 20px;
+  
+}
+
+.courseList {
+  width: 250px;
+  background-color: rgba(19, 19, 19, 0.7); /* Lighter, more transparent */
+  color: white;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  overflow-y: auto;
+  border-right: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.3);
+  animation: fadeIn 0.5s ease-out;
+  transition: background-color 0.3s ease; /* Smooth transition */
+  margin-top: 74px;
+
+}
+
+.courseList:hover {
+  background-color: rgba(30, 30, 30, 0.9); /* Darker on hover */
+}
+
+.courseTitle {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #90ee90;
+  margin-bottom: 10px;
+  text-align: center;
+  animation: pulse 1.5s infinite;
+}
+
+.searchBox {
+  padding: 10px;
+  border-radius: 20px;
+  border: 1px solid #333;
+  background-color: rgba(43, 43, 43, 0.8);
+  color: #90ee90;
+  font-size: 1em;
+  margin-bottom: 15px;
+  text-align: center;
+  outline: none;
+  transition: transform 0.3s, box-shadow 0.3s;
+  animation: fadeIn 0.8s ease-out;
+}
+
+.searchBox:focus {
+  transform: scale(1.05); /* Slightly expands the search bar */
+  border-color: #90ee90; /* Light green border on focus */
+  animation: glowEffect 1s infinite; /* Glowing effect */
+}
+
+.searchBox::placeholder {
+  color: #ccc;
+}
+
+.courseItems {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.courseItem {
+  background-color: rgba(255, 255, 255, 0.05);
+  padding: 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  text-align: center;
+  color: #90ee90;
+  border: 2px solid transparent;
+  transition: background-color 0.3s, transform 0.2s, border-color 0.3s;
+  animation: fadeIn 0.5s ease-out;
+}
+.deleteIcon {
+  width: 20px;
+  height: 20px;
+  margin-left: 10px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.deleteIcon:hover {
+  transform: scale(1.4);
+}
+
+.confirmationModal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  z-index: 1000;
+  color: #333;
+  margin-left: 10%;
+}
+
+.confirmButton,
+.cancelButton {
+  margin: 10px;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.confirmButton {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.cancelButton {
+  background-color: #ddd;
+  color: #333;
+}
+
+.courseItem:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  transform: scale(1.05);
+  border-color: #90ee90;
+  animation: borderGlow 0.6s ease-in-out;
+}
+
+.rightPanel {
+  margin-left: 250px;
+  padding: 20px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.layoutOptions {
+  display: flex;
+  gap: 40px;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+
+.option img {
+  width: 100px;
+  height: 100px;
+}
+
+.option p {
+  font-size: 1.2em;
+  margin-top: 10px;
+  color: #90ee90;
+}
+
+.option:hover {
+  transform: scale(1.1);
+}
+
+@keyframes pulseGlow {
+  0% {
+    text-shadow: 0 0 5px rgba(144, 238, 144, 0.5), 0 0 10px rgba(144, 238, 144, 0.4);
+    transform: scale(1);
+    opacity: 0.9;
+  }
+  50% {
+    text-shadow: 0 0 15px rgba(144, 238, 144, 0.8), 0 0 30px rgba(144, 238, 144, 0.6);
+    transform: scale(1.05);
+    opacity: 1;
+  }
+  100% {
+    text-shadow: 0 0 5px rgba(144, 238, 144, 0.5), 0 0 10px rgba(144, 238, 144, 0.4);
+    transform: scale(1);
+    opacity: 0.9;
+  }
+}
+
+.welcomeMessage {
+  font-size: 2em;
+  color: #333;
+  text-align: center;
+  animation: pulseGlow 2s infinite ease-in-out;
+}
+
+
+.choiceText {
+  color: black !important;;
+  font-weight: bold;
+}
+
+@keyframes slideFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.option:nth-child(1) {
+  animation: slideFadeIn 0.4s ease-out;
+}
+
+.option:nth-child(2) {
+  animation: slideFadeIn 0.4s ease-out 0.2s;
+}
+
+.option:nth-child(3) {
+  animation: slideFadeIn 0.4s ease-out 0.4s;
+}
+
+.selectedCourseTitle {
+  font-size: 2em; /* Adjust as needed */
+  font-weight: bold;
+  color: #333; /* Adjust color as needed */
+  animation: slideFadeIn 0.6s ease-out; /* Apply the animation */
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+  }
+
+  .courseList {
+    width: 100%;
+    position: relative;
+    padding-bottom: 20px;
+  }
+
+  .rightPanel {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .mobileHidden {
+    display: none;
+  }
+
+}  

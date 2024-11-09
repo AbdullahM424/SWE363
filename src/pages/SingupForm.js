@@ -27,9 +27,6 @@ const SingupForm = () => {
         }
 
     }
-
-       
-
     return (
         <div className = {style.thePage}>
         <div className = {style.theBody}>

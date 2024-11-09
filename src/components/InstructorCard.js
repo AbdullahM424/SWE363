@@ -1,9 +1,9 @@
 import React from 'react';
 import styles from '../assets/styles/InstructorCard.module.css';
 
-function InstructorCard({ name, department, rating }) {
+function InstructorCard({ name, department, rating, onClick }) {
     return (
-        <div className={styles.card}>
+        <div className={styles.card} onClick={onClick}>
             <div className={styles.info}>
                 <h2 className={styles.name}>{name}</h2>
                 <p className={styles.department}>{department}</p>
@@ -19,4 +19,3 @@ function InstructorCard({ name, department, rating }) {
 }
 
 export default InstructorCard;
-
