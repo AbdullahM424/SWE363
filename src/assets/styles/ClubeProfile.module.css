@@ -12,6 +12,7 @@
     background: url('../images/appBackground.png') no-repeat;
     background-size: cover;
     background-position:center ;
+    margin-top: 50px;
 }
 .rotated {
     transform: rotateY(180deg);

@@ -8,6 +8,7 @@
     min-height: 100vh;
     padding: 20px;
     background: url('../images/appBackground.png');
+    margin-top: 60px;
 }
 
 .cardContainer {
