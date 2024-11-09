@@ -23,7 +23,10 @@ function Home(){
                 </h1>
             </div>
             <div className={styles.categoryContainer}>
+                <Link to = "/facilities" style={{ textDecoration: 'none' }} >
                 <Category title = "Facilities"></Category>
+                </Link>
+               
                 <img src= {faqIcon} alt ="Faq Icon" className={styles.faqIcon}></img>
                 <Link to="/clubs" style={{ textDecoration: 'none' }}>
                     <Category title="Clubs" />
