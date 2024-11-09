@@ -1,0 +1,88 @@
+/* FacilityCard.module.css */
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 20px;
+    background: url('../images/appBackground.png');
+}
+
+.cardContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center cards horizontally */
+    justify-content: center; /* Center cards vertically */
+    gap: 20px;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto; /* Center container on the page */
+}
+
+.card {
+    width: 100%;
+    max-width: 600px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    margin: 0 auto; /* Center each card within the container */
+}
+
+.cardHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.2em;
+    font-weight: bold;
+    text-align: center;
+}
+
+.button {
+    background: none;
+    border: none;
+    font-size: 1.5em;
+    cursor: pointer;
+    color: #333;
+}
+
+.answer {
+    margin-top: 10px;
+    font-size: 1em;
+    line-height: 1.5;
+}
+
+/* Admin Panel */
+.adminPanel {
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 600px;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.input, .textarea {
+    width: 100%;
+    max-width: 550px;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background: rgba(255, 255, 255, 0.8);
+}
+
+.addButton {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
