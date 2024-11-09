@@ -4,6 +4,7 @@ import UploadFile from '../components/UploadFile';
 import styles from '../assets/styles/MaterialStudy.module.css';
 import slidesIcon from '../assets/images/MatiralStudyImages/book.png';
 import uploadIcon from '../assets/images/MatiralStudyImages/upload.png';
+import Header from '../components/common/Header';
 
 const SlideNotesPage = ({  isAdmin }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -59,6 +60,7 @@ const SlideNotesPage = ({  isAdmin }) => {
 
   return (
     <div className={styles.main}>
+        <Header></Header> 
       <div className={styles.itemList}>
         {data["Slides Notes"].map((item, index) => (
           <MaterialItem

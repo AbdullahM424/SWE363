@@ -5,6 +5,7 @@ import styles from '../assets/styles/MaterialStudy.module.css';
 import experienceIcon from '../assets/images/MatiralStudyImages/experience.png';
 import uploadIcon from '../assets/images/MatiralStudyImages/cloud-computing.png';
 import UploadExperiences from '../components/UploadExperiences';
+import Header from '../components/common/Header';
 
 const ExperiencesPage = ({ isAdmin }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -71,6 +72,7 @@ const ExperiencesPage = ({ isAdmin }) => {
 
   return (
     <div className={styles.main}>
+     <Header></Header> 
     <div className={styles.itemList}>
       {data["Experiences"].map((item, index) => (
         <MaterialItem

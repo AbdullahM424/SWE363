@@ -4,6 +4,7 @@ import UploadFile from '../components/UploadFile';
 import styles from '../assets/styles/MaterialStudy.module.css';
 import examsIcon from '../assets/images/MatiralStudyImages/exam.png';
 import uploadIcon from '../assets/images/MatiralStudyImages/cloud-computing.png';
+import Header from '../components/common/Header';
 
 const OldExamsPage = ({ isAdmin }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -58,6 +59,7 @@ const OldExamsPage = ({ isAdmin }) => {
 
   return (
     <div className={styles.main}>
+        <Header></Header> 
       <div className={styles.itemList}>
         {data["Old Exams"].map((item, index) => (
           <MaterialItem
