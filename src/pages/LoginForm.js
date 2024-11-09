@@ -3,7 +3,7 @@ import style from "../assets/styles/LoginForm.module.css";
 import { FaUserAlt, FaLock } from "react-icons/fa";
 import { VscError } from "react-icons/vsc";
 
-const LoginFormm = () => {
+const LoginForm = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     let [isValid, setValidty] = useState(true);
@@ -69,4 +69,4 @@ const LoginFormm = () => {
     );
 }
 
-export default LoginFormm;
+export default LoginForm;

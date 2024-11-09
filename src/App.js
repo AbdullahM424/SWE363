@@ -5,7 +5,7 @@ import Clubs from "./pages/Clubs.js"
 import Material from "./pages/MaterialList"
 import Instructors from './pages/Instructors.js';
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import LoginFormm from './pages/LoginForm.js';
+import LoginForm from './pages/LoginForm.js';
 import SingupForm from './pages/SingupForm.js';
 import ClubsProfile from './pages/ClubsProfile.js'
 import FacilitiesList from './pages/Facilities.js'
@@ -15,7 +15,7 @@ import FaqPage from "./pages/FaqPage.js"
 function App() {//the root if the application, sees all the changes in the url
   return (
    <div>
-   
+  
     <Router>
       <Routes>
         <Route path = "/" element = {<Home />}> </Route>
@@ -23,8 +23,11 @@ function App() {//the root if the application, sees all the changes in the url
         <Route path = "/instructors" element={<Instructors></Instructors>}></Route>
         <Route path =  "/clubProfile" element = {<ClubsProfile></ClubsProfile>}></Route>
         <Route path = "/faq" element = {<FaqPage></FaqPage>}></Route>
+        <Route path = "facilities" element = {<Facilities></Facilities>}></Route>
       </Routes>
     </Router>
+  
+  
    </div>
 
   );
