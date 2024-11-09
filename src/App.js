@@ -11,14 +11,13 @@ import SingupForm from './pages/SingupForm.js';
 import ClubsProfile from './pages/ClubsProfile.js'
 import FacilitiesList from './pages/Facilities.js'
 import Error404 from './pages/Error404.js'
-import LoadingPage from './pages/LoadingPage.js';
 function App() {//the root if the application, sees all the changes in the url
   return (
    <div>
    
     <Router>
       <Routes>
-        <Route path = "/" element = {<LoadingPage />}> </Route>
+        <Route path = "/" element = {<Home />}> </Route>
         <Route path ="/clubs" element = {<Clubs></Clubs>}></Route>
         <Route path = "/instructors" element={<Instructors></Instructors>}></Route>
 
