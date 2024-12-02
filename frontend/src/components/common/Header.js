@@ -29,9 +29,6 @@ function Header(){
           <Link to = "/instructors">
           <button className={styles.headerButton}>Instructors</button>
           </Link>
-          
-        
-          
         </div>
       );
 }
