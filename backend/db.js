@@ -2,7 +2,7 @@
 const mongoose = require('mongoose');
 
 // MongoDB connection string
-const uri = 'mongodb+srv://humaidakah:kahkah@swe363-db.eachi.mongodb.net/KFUPM-KICKSTART?retryWrites=true&w=majority';
+const uri = 'mongodb+srv://humaidakah:kahkah@swe363-db.eachi.mongodb.net/WEB-PROJECT?retryWrites=true&w=majority';
 
 // Connect to MongoDB
 const connectDB = async () => {

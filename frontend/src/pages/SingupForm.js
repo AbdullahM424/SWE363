@@ -5,15 +5,17 @@ import { FaUserAlt, FaLock } from "react-icons/fa";
 import { VscError } from "react-icons/vsc";
 
 const SignupForm = () => {
+    const [username,setUsername] = useState("");
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setCPassword] = useState('');
     const [isValid, setValidity] = useState(true);
+    const [error, setError] = useState(""); // To display error messages
     const navigate = useNavigate(); // Initialize navigate function from react-router-dom
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     // Function to handle the validity of the password and email
-    const handleSubmit = (e) => {
+     const handleSubmit = async (e) => {
         e.preventDefault();
 
         // Validate email, password length, and password match
@@ -21,9 +23,32 @@ const SignupForm = () => {
             setValidity(false);
             console.log("Validation failed");
         } else {
-            console.log("Signup successfully");
-            setValidity(true);
-            navigate('/home'); // Redirect to the home page after successful signup
+            try{
+                setValidity(true);
+                const response = await fetch("/api/users/register",{
+                    method:"POST",
+                    headers:{
+                        "Content-Type":"application/json"
+                    },
+                    body:JSON.stringify({username,email,password})
+                });
+                
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    console.log(errorData)
+                    throw new Error(errorData.error || "Failed to login");
+                  }
+                  const data = await response.json();
+                  // Store the token and user data on the browser for future API requests
+                  console.log("Register successful:", data);
+                  localStorage.setItem("token", data.token); 
+                  navigate("/home");
+            }
+          
+            catch(err){
+                console.log(err.message)
+                setError(err.message); // Display error to the user
+            }
         }
     };
 
@@ -35,7 +60,12 @@ const SignupForm = () => {
                         <h1>Signup</h1>
                         
                         <div className={style.inputBox}> 
-                            <input type='text' placeholder='Username' required />
+                            <input 
+                            value={username}
+                            onChange={(e)=>{
+                                setUsername(e.target.value)
+                            }}
+                            type='text' placeholder='Username' required />
                             <FaUserAlt className={style.icon} />
                         </div>
 
@@ -80,7 +110,7 @@ const SignupForm = () => {
                                 <li>Passwords should match</li>
                             </ul>
                         </div>
-                        
+                        {error && <p className={style.errorMessage}>{error}</p>} {/* Display error message */}
                         <div className={style.submit}>
                             <button type='submit'>Signup</button>
                         </div>

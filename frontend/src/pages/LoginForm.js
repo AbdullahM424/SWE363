@@ -9,10 +9,11 @@ const LoginForm = () => {
     const [password, setPassword] = useState('');
     const [isValid, setValidity] = useState(true);
     const navigate = useNavigate(); // Initialize navigate function from react-router-dom
+    const [error, setError] = useState(""); // To display error messages
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     // Function to handle the validity of the email and password
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();    
         setValidity(true);
 
@@ -21,11 +22,29 @@ const LoginForm = () => {
             setValidity(false);
             console.log("is not valid");
         } else {
-            console.log("submitted successfully");
-            navigate('/home'); // Redirect to the home page on successful validation
-        }
-    };
-
+            try{
+                const response = await fetch("/api/users/login",{
+                    method:"POST",
+                    headers:{
+                        "Content-Type":"application/json"
+                    },
+                    body:JSON.stringify({email,password})
+                });
+                if(!response.ok){
+                    const errorData = await response.json();
+                    throw new Error(errorData.error);
+                  }
+                const data = await response.json();
+                localStorage.setItem("token",data.token);
+                navigate('/home'); // Redirect to the home page on successful validation  
+            }
+           catch(err){
+            console.log(err.message);
+            setError(err.message)
+           } 
+            
+    }
+    }
     return (
         <div className={style.thePage}>
             <div className={style.theBody}>
@@ -63,9 +82,11 @@ const LoginForm = () => {
                             <label><input type="checkbox" /> Remember me</label>
                             <a href='#'>Forget password?</a>
                         </div>
+                        {error && <p className={style.errorMessage}>{error}</p>} {/* Display error message */}
                         <div className={style.submit}>
                             <button type='submit'>Login</button>
                         </div>
+                        
                         <div className={style.registerLink}>
                             <p>Don't have an account? <Link to="/registration">Register</Link></p>
                         </div>

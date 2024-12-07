@@ -4,11 +4,13 @@ const connectDB = require('./db.js');
 const cors = require('cors');
 const app = express();
 const PORT = 8080;
+const usersRouter = require("./routes/userRoutes.js");
 
 // Middleware
 app.use(express.json());
 app.use(cors());
 
+app.use("/api/users",usersRouter);
 
 const startServer = async () => {
     try {
