@@ -6,7 +6,10 @@ import experienceIcon from '../assets/images/MatiralStudyImages/experience.png';
 import deleteIcon from '../assets/images/MatiralStudyImages/removed.png';
 import {Link} from "react-router-dom";
 import Header from '../components/common/Header';
+import { useNavigate } from 'react-router-dom';
+
 const CoursePage = ({ isAdmin }) => {
+  const navigate = useNavigate()
   const [selectedCourse, setSelectedCourse] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [courses, setCourses] = useState(["SWE 363", "IAS 212", "ME 210", "ICS 202", "Course XXX"]);
@@ -50,9 +53,9 @@ const CoursePage = ({ isAdmin }) => {
   );
 
   const goToExperiencePage = () => {
-    if (selectedCourse) {
-      navigate('/experience', { state: { selectedCourse } }); // Pass selectedCourse using state
-    }
+    
+      navigate('/experience', { state:  "SWE 363"  }); // Pass selectedCourse using state
+  
   };
 
   return (
@@ -118,12 +121,11 @@ const CoursePage = ({ isAdmin }) => {
                 <p className={styles.choiceText}>Old Exams</p>
               </div>
               </Link>
-             <Link to = "/experience" style = {{textDecoration:"none"}}>
              <div className={styles.option} onClick={goToExperiencePage}>
                 <img src={experienceIcon} alt="Experiences" />
                 <p className={styles.choiceText}>Experiences</p>
               </div>
-              </Link>
+              
               
             </div>
           </>

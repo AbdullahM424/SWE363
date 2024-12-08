@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect,useLocation } from 'react';
 import MaterialItem from '../components/MaterialItem';
 import ExperienceModal from '../components/ExperienceModal';
 import styles from '../assets/styles/MaterialStudy.module.css';
@@ -8,20 +8,19 @@ import UploadExperiences from '../components/UploadExperiences';
 import Header from '../components/common/Header';
 
 const ExperiencesPage = ({ isAdmin }) => {
-  const { state } = useLocation();
-  const { selectedCourse } = state || {};
-  const [experiences, setExperiences] = useState([]);
+
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedExperience, setSelectedExperience] = useState(null);
   const [experienceTitle, setExperienceTitle] = useState('');
   const [experienceDescription, setExperienceDescription] = useState('');
   const [experienceTotal, setExperienceTotal] = useState('');
+  const [experiences, setExperiences] = useState([]);
 
   // Fetch experiences from backend
   useEffect(() => {
     const fetchExperiences = async () => {
-      if (!selectedCourse) return;
       try {
-        const response = await fetch(`/api/experiences/${selectedCourse.name}`);
+        const response = await fetch(`/api/experiences/SWE 363`); // Adjust endpoint as needed
         if (!response.ok) throw new Error("Failed to fetch experiences.");
         const data = await response.json();
         setExperiences(data);
@@ -31,16 +30,12 @@ const ExperiencesPage = ({ isAdmin }) => {
     };
 
     fetchExperiences();
-  }, [selectedCourse]);
+  }, []);
 
   // Handle new experience submission (admin-only)
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-    if (!isAdmin) {
-      alert("You don't have permission to perform this action.");
-      return;
-    }
-
+    console.log(experienceTotal)
     if (!experienceTitle || !experienceDescription || !experienceTotal) {
       alert("All fields are required.");
       return;
@@ -48,13 +43,13 @@ const ExperiencesPage = ({ isAdmin }) => {
 
     try {
       const newExperience = {
-        courseName: selectedCourse.courseName,
+        courseName:"SWE 363",
         title: experienceTitle,
         description: experienceDescription,
-        total: experienceTotal, // Include the total field
+        total: experienceTotal,
       };
 
-      const response = await fetch('/api/experiences/', {
+      const response = await fetch('/api/experiences', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(newExperience),
@@ -92,12 +87,12 @@ const ExperiencesPage = ({ isAdmin }) => {
   };
 
   // Handle rating submission
-  const handleRate = async (experienceId, userRating) => {
+  const handleRating = async (experienceId, rating) => {
     try {
       const response = await fetch(`/api/experiences/rate/${experienceId}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ rating: userRating }),
+        body: JSON.stringify({ rating }),
       });
 
       if (!response.ok) throw new Error("Failed to update rating.");
@@ -115,43 +110,44 @@ const ExperiencesPage = ({ isAdmin }) => {
 
   return (
     <div className={styles.main}>
-     <Header></Header> 
-    <div className={styles.itemList}>
-      {data["Experiences"].map((item, index) => (
-        <MaterialItem
-          key={index}
-          item={item}
-          index={index}
-          icon={icons["Experiences"]}
-          isAdmin={isAdmin}
-          layoutType={"Experiences"}
-          onDelete={handleDelete}
-          onDownload={console.log("......")}
-          onOpenModal={setSelectedExperience}
-          onRate={(rating) => handleRate(item._id, rating)}
-        />
-      ))}
-    </div>
+      <Header />
+      <div className={styles.itemList}>
+        {experiences.map((item, index) => (
+          <MaterialItem
+            key={item._id}
+            item={item}
+            index={index}
+            icon={experienceIcon}
+            isAdmin={isAdmin}
+            layoutType={"Experiences"}
+            onDelete={() => handleDelete(item._id)}
+            onRate={(i)=> console.log(">>>>")}
+            onOpenModal={setSelectedExperience}
+          />
+        ))}
+      </div>
 
-    {selectedExperience && (
+      {selectedExperience && (
         <ExperienceModal
           experience={selectedExperience}
           onClose={() => setSelectedExperience(null)}
-          onRate={(rating) => handleRate(item._id, rating)}
+          onRate={(rating) => handleRating(selectedExperience._id, rating)}
         />
       )}
 
-      <div className={styles.uploadSection}>
-        <span className={styles.uploadText}>
-          <b>Do you have an experience to share?</b>
-        </span>
-        <img
-          src={uploadIcon}
-          alt="Upload icon"
-          className={styles.uploadIcon}
-          onClick={() => setIsModalOpen(true)}
-        />
-      </div>
+      {isAdmin && (
+        <div className={styles.uploadSection}>
+          <span className={styles.uploadText}>
+            <b>Do you have an experience to share?</b>
+          </span>
+          <img
+            src={uploadIcon}
+            alt="Upload icon"
+            className={styles.uploadIcon}
+            onClick={() => setIsModalOpen(true)}
+          />
+        </div>
+      )}
 
       <UploadExperiences
         isOpen={isModalOpen}
@@ -161,11 +157,12 @@ const ExperiencesPage = ({ isAdmin }) => {
         setExperienceTitle={setExperienceTitle}
         experienceDescription={experienceDescription}
         setExperienceDescription={setExperienceDescription}
+        experienceTotal={experienceTotal}
+        setExperienceTotal={setExperienceTotal}
       />
     </div>
-
-    
   );
 };
 
 export default ExperiencesPage;
+;                                                                                                                            // UploadFormModal.js
