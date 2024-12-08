@@ -11,28 +11,41 @@ import { MdEdit } from "react-icons/md";
 const ClubeProfile = () => {
   const [socialMedia, setSocialMedia] = useState({ whatsapp: "", instagram: "", twitter: "" });
   const [name, setName] = useState('');
-  const [description, setDescription] = useState('the description of the club...');
+  const [description, setDescription] = useState('');
   const [profileImage, setProfileImage] = useState(null);
   const [isRotated, setIsRotated] = useState(false);
   const [isFlipping, setIsFlipping] = useState(false);
 
-  const [announcementsData, setAnnouncementsData] = useState([
-    { title: "Announcement 1", content: "This is the first announcement." },
-    { title: "Announcement 2", content: "This is the second announcement." },
-    { title: "Announcement 3", content: "This is the third announcement." },
-  ]);
+  const [announcementsData, setAnnouncementsData] = useState([]);
 
-  const [newAnnouncement, setNewAnnouncement] = useState({ title: "", content: "" });
+  const [newAnnouncement, setNewAnnouncement] = useState({ title: "",
+     content: "" });
 
-  const handleSave = (e) => {
-    e.preventDefault();
-    setIsFlipping(true);
-
-    setTimeout(() => {
-      setIsRotated(false);
-      setIsFlipping(false);
-    }, 600);
-  };
+     const handleSave = async (e) => {
+      e.preventDefault();
+  
+      const formData = new FormData();
+      formData.append('clubName', name);
+      formData.append('profileDescription', description);
+      formData.append('profileImg', profileImage);
+      formData.append('socialMediaContacts', JSON.stringify([
+        { platform: 'WhatsApp', url: socialMedia.whatsapp },
+        { platform: 'Instagram', url: socialMedia.instagram },
+        { platform: 'Twitter', url: socialMedia.twitter },
+      ]));
+  
+      try {
+        const response = await fetch('/api/clubs/addclub', {
+          method: 'POST',
+          body: formData,
+        });
+  
+        const result = await response.json();
+        console.log('Success:', result);
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
 
   const handlePhotoUpload = (e) => {
     const file = e.target.files[0];
@@ -41,6 +54,7 @@ const ClubeProfile = () => {
     }
   };
 
+  
   const handleSocialMediaChange = (platform, value) => {
     setSocialMedia((prev) => ({ ...prev, [platform]: value }));
   };
