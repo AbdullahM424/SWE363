@@ -6,7 +6,7 @@ import emptyStarIcon from '../assets/images/MatiralStudyImages/black-star-silhou
 import deleteIcon from '../assets/images/MatiralStudyImages/removed.png';
 import downLoadImage from '../assets/images/MatiralStudyImages/arrow.png';
 
-const MaterialItem = ({ item, index, icon, isAdmin, layoutType, onDelete, onDownload, onOpenModal }) => (
+const MaterialItem = ({ item, index, icon, isAdmin, layoutType, onDelete, onDownload, onOpenModal,onRate }) => (
   <div
     className={styles.item}
     onClick={layoutType === "Experiences" ? () => onOpenModal(item) : null}
@@ -22,6 +22,7 @@ const MaterialItem = ({ item, index, icon, isAdmin, layoutType, onDelete, onDown
             src={i < item.rating ? starIcon : emptyStarIcon}
             alt={`${i + 1} star`}
             className={styles.starIcon}
+            onClick={() => onRate(i + 1)}
           />
         ))}
       </div>

@@ -49,6 +49,12 @@ const CoursePage = ({ isAdmin }) => {
     course.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  const goToExperiencePage = () => {
+    if (selectedCourse) {
+      navigate('/experience', { state: { selectedCourse } }); // Pass selectedCourse using state
+    }
+  };
+
   return (
     <div>
       <Header></Header>
@@ -113,7 +119,7 @@ const CoursePage = ({ isAdmin }) => {
               </div>
               </Link>
              <Link to = "/experience" style = {{textDecoration:"none"}}>
-             <div className={styles.option} onClick={() => console.log("Experiences Selected")}>
+             <div className={styles.option} onClick={goToExperiencePage}>
                 <img src={experienceIcon} alt="Experiences" />
                 <p className={styles.choiceText}>Experiences</p>
               </div>

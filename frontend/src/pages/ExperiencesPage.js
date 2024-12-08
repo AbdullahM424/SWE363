@@ -8,67 +8,110 @@ import UploadExperiences from '../components/UploadExperiences';
 import Header from '../components/common/Header';
 
 const ExperiencesPage = ({ isAdmin }) => {
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [selectedExperience, setSelectedExperience] = useState(null);
-    const [experienceTitle, setExperienceTitle] = useState('');
-    const [experienceDescription, setExperienceDescription] = useState('');
+  const { state } = useLocation();
+  const { selectedCourse } = state || {};
+  const [experiences, setExperiences] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [experienceTitle, setExperienceTitle] = useState('');
+  const [experienceDescription, setExperienceDescription] = useState('');
+  const [experienceTotal, setExperienceTotal] = useState('');
 
+  // Fetch experiences from backend
+  useEffect(() => {
+    const fetchExperiences = async () => {
+      if (!selectedCourse) return;
+      try {
+        const response = await fetch(`/api/experiences/${selectedCourse.name}`);
+        if (!response.ok) throw new Error("Failed to fetch experiences.");
+        const data = await response.json();
+        setExperiences(data);
+      } catch (error) {
+        console.error("Error fetching experiences:", error);
+      }
+    };
 
-    const [data, setData] = useState({
-        "Experiences": [
-          { title: "Experience 1", description: "Details of Experience 1", total: "100", rating: 3 },
-          { title: "Experience 2", description: "Details of Experience 2", total: "90", rating: 5 },
-          { title: "Experience 3", description: "Details of Experience 3", total: "95", rating: 0 },
-          { title: "Experience 4", description: "Details of Experience 4", total: "88", rating: 4 },
-          { title: "Experience 5", description: "Details of Experience 5", total: "91", rating: 3 },
-          { title: "Experience 6", description: "Details of Experience 6", total: "100", rating: 5 },
-          { title: "Experience 7", description: "Details of Experience 7", total: "85", rating: 1 },
-          { title: "Experience 8", description: "Details of Experience 8", total: "92", rating: 3 }
-          
-        ]
+    fetchExperiences();
+  }, [selectedCourse]);
+
+  // Handle new experience submission (admin-only)
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
+    if (!isAdmin) {
+      alert("You don't have permission to perform this action.");
+      return;
+    }
+
+    if (!experienceTitle || !experienceDescription || !experienceTotal) {
+      alert("All fields are required.");
+      return;
+    }
+
+    try {
+      const newExperience = {
+        courseName: selectedCourse.courseName,
+        title: experienceTitle,
+        description: experienceDescription,
+        total: experienceTotal, // Include the total field
+      };
+
+      const response = await fetch('/api/experiences/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(newExperience),
       });
 
-    const icons = {
-        "Experiences": experienceIcon
-      };
-      
-    const handleDelete = (index) => {
-        const newData = data["Experiences"].filter((_, i) => i !== index);
-        setData({ ...data, ["Experiences"]: newData });
-      };
+      if (!response.ok) throw new Error("Failed to add experience.");
+      const createdExperience = await response.json();
+      setExperiences((prevExperiences) => [...prevExperiences, createdExperience]);
+      setExperienceTitle('');
+      setExperienceDescription('');
+      setExperienceTotal('');
+      setIsModalOpen(false);
+    } catch (error) {
+      console.error("Error adding experience:", error);
+    }
+  };
 
-    const handleRating = (rating) => {
-        setSelectedExperience((prevExperience) => {
-          const updatedExperience = { ...prevExperience, rating };
-          const updatedData = data["Experiences"].map((exp) =>
-            exp.title === updatedExperience.title ? updatedExperience : exp
-          );
-          setData({ ...data, "Experiences": updatedData });
-          return updatedExperience;
-        });
-      };
+  // Handle experience deletion (admin-only)
+  const handleDelete = async (experienceId) => {
+    if (!isAdmin) {
+      alert("You don't have permission to perform this action.");
+      return;
+    }
 
-    const handleFormSubmit = (e) => {
-        e.preventDefault();
-        setExperienceTitle('');
-        setExperienceDescription('');
-        setIsModalOpen(false);
-      };
+    try {
+      const response = await fetch(`/api/experiences/${experienceId}`, {
+        method: 'DELETE',
+      });
 
-    const handleDownload = (item) => {
-        const fileContent = `Title: ${item.title}\nDescription: ${item.url}`;
-        const blob = new Blob([fileContent], { type: "text/plain" });
-        const url = URL.createObjectURL(blob);
-    
-        const link = document.createElement("a");
-        link.href = url;
-        link.download = `${item.title}.txt`;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-    
-        URL.revokeObjectURL(url);
-      };
+      if (!response.ok) throw new Error("Failed to delete experience.");
+      setExperiences((prevExperiences) => prevExperiences.filter((exp) => exp._id !== experienceId));
+    } catch (error) {
+      console.error("Error deleting experience:", error);
+    }
+  };
+
+  // Handle rating submission
+  const handleRate = async (experienceId, userRating) => {
+    try {
+      const response = await fetch(`/api/experiences/rate/${experienceId}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ rating: userRating }),
+      });
+
+      if (!response.ok) throw new Error("Failed to update rating.");
+      const updatedExperience = await response.json();
+
+      setExperiences((prevExperiences) =>
+        prevExperiences.map((exp) =>
+          exp._id === updatedExperience._id ? updatedExperience : exp
+        )
+      );
+    } catch (error) {
+      console.error("Error updating rating:", error);
+    }
+  };
 
   return (
     <div className={styles.main}>
@@ -83,8 +126,9 @@ const ExperiencesPage = ({ isAdmin }) => {
           isAdmin={isAdmin}
           layoutType={"Experiences"}
           onDelete={handleDelete}
-          onDownload={handleDownload}
+          onDownload={console.log("......")}
           onOpenModal={setSelectedExperience}
+          onRate={(rating) => handleRate(item._id, rating)}
         />
       ))}
     </div>
@@ -93,7 +137,7 @@ const ExperiencesPage = ({ isAdmin }) => {
         <ExperienceModal
           experience={selectedExperience}
           onClose={() => setSelectedExperience(null)}
-          onRate={handleRating}
+          onRate={(rating) => handleRate(item._id, rating)}
         />
       )}
 
@@ -116,7 +160,7 @@ const ExperiencesPage = ({ isAdmin }) => {
         experienceTitle={experienceTitle}
         setExperienceTitle={setExperienceTitle}
         experienceDescription={experienceDescription}
-        setFileDescription={setExperienceDescription}
+        setExperienceDescription={setExperienceDescription}
       />
     </div>
 
