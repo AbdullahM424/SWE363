@@ -19,7 +19,7 @@ router.post('/', async (req, res) => {
 
     // Validate required fields
     if (!courseName || !title || !description || !total) {
-      return res.status(400).json({ message: 'All fields are required.' });
+      return res.status(400).json({ message: 'All fields are required.66' });
     }
 
     const newExperience = new Experience({
@@ -56,9 +56,11 @@ router.post('/rate/:id', async (req, res) => {
   if (rating < 0 || rating > 5) {
     return res.status(400).json({ message: 'Rating must be between 0 and 5.' });
   }
+  console.log(req.params.id)
 
   try {
     const experience = await Experience.findById(req.params.id);
+    console.log(experience)
     if (!experience) {
       return res.status(404).json({ message: 'Experience not found.' });
     }

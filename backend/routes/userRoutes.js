@@ -30,9 +30,7 @@ router.post("/register",async (req,res)=>{
 router.post("/login",async (req,res)=>{
     try{
         const {email,password} = req.body;
-        const user = await User.findOne({"email":email});
-        console.log(user);
-        if(!user){
+        const user = await User.findOne({"email":email});        if(!user){
            return res.status(404).json({error:"no user was found with the given email"});
         }
 
