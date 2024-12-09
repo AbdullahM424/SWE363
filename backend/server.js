@@ -5,12 +5,15 @@ const cors = require('cors');
 const app = express();
 const PORT = 8080;
 const usersRouter = require("./routes/userRoutes.js");
+const instructorsRouter = require("./routes/instructorsRoutes.js"); // Import the instructors route
+
 
 // Middleware
 app.use(express.json());
 app.use(cors());
 
 app.use("/api/users",usersRouter);
+app.use("/api/instructors", instructorsRouter);
 
 const startServer = async () => {
     try {
