@@ -6,12 +6,17 @@ const app = express();
 const PORT = 8080;
 const usersRouter = require("./routes/userRoutes.js");
 const experienceRoutes =require("./routes/experienceRoutes.js");
+const uploadOldExamsRoute = require('./routes/uploadOldExams');
+const downloadOldExamsRoute = require('./routes/downloadOldExams');
+
 // Middleware
 app.use(express.json());
 app.use(cors());
 
 app.use("/api/users",usersRouter);
 app.use('/api/experiences', experienceRoutes);
+app.use('/upload-old-exams', uploadOldExamsRoute);
+app.use('/download-old-exams', downloadOldExamsRoute);
 
 
 const startServer = async () => {
