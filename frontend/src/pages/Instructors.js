@@ -14,10 +14,13 @@ function Instructors() {
   useEffect(() => {
     const fetchInstructors = async () => {
       try {
-        const response = await fetch("/api/instructors"); // Backend API endpoint
+        const response = await fetch("/api/Instructor"); // Backend API endpoint
         if (!response.ok) throw new Error("Failed to fetch instructors");
         const data = await response.json();
+        console.log(data+"here")
         setInstructors(data);
+        console.log(instructors.length+"here")
+
         setLoading(false);
       } catch (err) {
         setError(err.message);

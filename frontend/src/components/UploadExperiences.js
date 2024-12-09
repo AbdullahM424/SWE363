@@ -2,7 +2,7 @@
 import React from 'react';
 import styles from '../assets/styles/MaterialStudy.module.css';
 
-const UploadExperiences = ({ isOpen, onClose, onSubmit, experienceTitle, setExperienceTitle, fileDescription, setExperienceDescription}) => (
+const UploadExperiences = ({ isOpen, onClose, onSubmit, experienceTitle, setExperienceTitle, experienceDescription, setExperienceDescription,experienceTotal,setExperienceTotal}) => (
   isOpen && (
     <div className={styles.modal}>
       <div className={styles.modalContent}>
@@ -23,6 +23,7 @@ const UploadExperiences = ({ isOpen, onClose, onSubmit, experienceTitle, setExpe
               <input
                 type="text"
                 placeholder="Enter the total number(e.g.,100)"
+                onChange={(e) => setExperienceTotal(e.target.value)}
                 required
               />
            </label>
@@ -30,7 +31,7 @@ const UploadExperiences = ({ isOpen, onClose, onSubmit, experienceTitle, setExpe
           <label>
             Describe Your Experience:
             <textarea
-              value={fileDescription}
+              value={experienceDescription}
               onChange={(e) => setExperienceDescription(e.target.value)}
               required
             />

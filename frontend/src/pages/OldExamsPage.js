@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import MaterialItem from '../components/MaterialItem';
 import UploadFile from '../components/UploadFile';
 import styles from '../assets/styles/MaterialStudy.module.css';
@@ -12,54 +12,89 @@ const OldExamsPage = ({ isAdmin }) => {
   const [fileDescription, setFileDescription] = useState('');
   const [file, setFile] = useState(null);
 
-  // Dummy data and icon selection
-  const [data, setData] = useState({
-    "Old Exams": [
-      { title: "Old Exam 1", url: "Description of Old Exam 1" },
-      { title: "Old Exam 2", url: "Description of Old Exam 2" },
-      { title: "Old Exam 3", url: "Description of Old Exam 1" },
-      { title: "Old Exam 4", url: "Description of Old Exam 2" },
-      { title: "Old Exam 5", url: "Description of Old Exam 1" },
-      { title: "Old Exam 6", url: "Description of Old Exam 2" },
-      { title: "Old Exam 7", url: "Description of Old Exam 1" },
-      { title: "Old Exam 8", url: "Description of Old Exam 2" }
-    ]
-  });
+  const [data, setData] = useState({ "Old Exams": [] });
 
   const icons = {
     "Old Exams": examsIcon,
   };
 
-  const handleDelete = (index) => {
-    const newData = data["Old Exams"].filter((_, i) => i !== index);
-    setData({ ...data, ["Old Exams"]: newData });
+  // Fetch the list of exams
+  useEffect(() => {
+    const fetchExams = async () => {
+      try {
+        const response = await fetch('/download-old-exams'); 
+        
+        if (!response.ok) {
+          throw new Error('Failed to fetch old exams');
+        }
+        const exams = await response.json();
+        setData({ "Old Exams": exams });
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchExams();
+  }, []);
+
+  const handleDelete = async (index) => {
+    const exam = data["Old Exams"][index];
+     try {
+       const response = await fetch(`/download-old-exams/${exam._id}`, { method: 'DELETE' });
+       if (!response.ok) throw new Error('Failed to delete exam');
+     } catch (error) {
+       console.error(error);
+       return;
+     }
   };
 
   const handleDownload = (item) => {
-    const fileContent = `Title: ${item.title}\nDescription: ${item.url}`;
-    const blob = new Blob([fileContent], { type: "text/plain" });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = `${item.title}.txt`;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    URL.revokeObjectURL(url);
+    //trigger the file download
+    window.location.href = `/download-old-exams/${item._id}`;
   };
 
-
-  const handleFormSubmit = (e) => {
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
-    setFileTitle('');
-    setFileDescription('');
-    setFile(null);
-    setIsModalOpen(false);
+    if (!file) {
+      alert('Please select a file to upload');
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append('pdf', file);
+    try {
+      const response = await fetch('/upload-old-exams', {
+        method: 'POST',
+        body: formData
+      });
+
+      if (!response.ok) {
+        throw new Error('Upload failed');
+      }
+
+      const result = await response.json();
+      console.log('Upload success:', result);
+
+      // refetch the exams list to show the added exam
+      const refreshed = await fetch('/download-old-exams');
+      if (!refreshed.ok) {
+        throw new Error('Failed to refetch exams after upload');
+      }
+      const refreshedExams = await refreshed.json();
+      setData({ "Old Exams": refreshedExams });
+
+      setFileTitle('');
+      setFileDescription('');
+      setFile(null);
+      setIsModalOpen(false);
+    } catch (error) {
+      console.error(error);
+      alert('Error uploading file');
+    }
   };
 
   return (
     <div className={styles.main}>
-        <Header></Header> 
+      <Header />
       <div className={styles.itemList}>
         {data["Old Exams"].map((item, index) => (
           <MaterialItem

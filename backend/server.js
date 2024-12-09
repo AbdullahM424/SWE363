@@ -5,7 +5,10 @@ const cors = require('cors');
 const app = express();
 const PORT = 8080;
 const usersRouter = require("./routes/userRoutes.js");
-const instructorsRouter = require("./routes/instructorsRoutes.js"); // Import the instructors route
+const experienceRoutes =require("./routes/experienceRoutes.js");
+//const uploadOldExamsRoute = require('./routes/uploadOldExams');
+const downloadOldExamsRoute = require('./routes/downloadOldExams');
+const InstructorRoute = require("./routes/instructorsRoutes.js");
 
 
 // Middleware
@@ -13,7 +16,12 @@ app.use(express.json());
 app.use(cors());
 
 app.use("/api/users",usersRouter);
-app.use("/api/instructors", instructorsRouter);
+app.use('/api/experiences', experienceRoutes);
+//app.use('/upload-old-exams', uploadOldExamsRoute);
+app.use('/download-old-exams', downloadOldExamsRoute);
+app.use('/api/Instructor', InstructorRoute);
+
+
 
 const startServer = async () => {
     try {

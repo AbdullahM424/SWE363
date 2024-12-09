@@ -20,7 +20,7 @@ const ExperienceModal = ({ experience, onClose, onRate }) => (
           {[...Array(5)].map((_, i) => (
             <img
               key={i}
-              src={i < experience.rating ? starIcon : emptyStarIcon}
+              src={i < 5-experience.rating ? starIcon : emptyStarIcon}
               alt={`${i + 1} star`}
               className={styles.starIcon}
               onClick={() => onRate(i + 1)}
