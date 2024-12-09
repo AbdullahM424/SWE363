@@ -6,12 +6,14 @@ const app = express();
 const PORT = 8080;
 const usersRouter = require("./routes/userRoutes.js");
 const experienceRoutes =require("./routes/experienceRoutes.js");
+const courseRoutes = require("./routes/courseRoutes.js");
 // Middleware
 app.use(express.json());
 app.use(cors());
 
 app.use("/api/users",usersRouter);
 app.use('/api/experiences', experienceRoutes);
+app.use('/api/courses', courseRoutes);
 
 
 const startServer = async () => {
