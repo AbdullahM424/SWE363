@@ -60,7 +60,6 @@ router.post('/rate/:id', async (req, res) => {
 
   try {
     const experience = await Experience.findById(req.params.id);
-    console.log(experience)
     if (!experience) {
       return res.status(404).json({ message: 'Experience not found.' });
     }
