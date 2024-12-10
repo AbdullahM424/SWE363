@@ -8,13 +8,41 @@ import {Link} from "react-router-dom";
 import Header from '../components/common/Header';
 import { useNavigate } from 'react-router-dom';
 
-const CoursePage = ({ isAdmin }) => {
+const CoursePage = ({ intitial }) => {
   const navigate = useNavigate()
   const [selectedCourse, setSelectedCourse] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [courses, setCourses] = useState(["SWE 363", "IAS 212", "ME 210", "ICS 202", "Course XXX"]);
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [courseToDelete, setCourseToDelete] = useState(null);
+  const [isAdmin,setAdmin] = useState(intitial);
+  useEffect(()=>{
+    const getType =async ()=>{
+      try{
+        const token = localStorage.getItem("token");
+        const response = await fetch("/api/users/type",{
+          headers:{
+            "x-auth":token
+          },
+        });
+        const data  = await response.json();
+        const type = data.type;
+        console.log(type)
+        if(type==="admin"){
+          setAdmin(true)
+        }
+        else{
+          setAdmin(false)
+        }
+      }
+      catch(err){
+        console.log(err.message)
+      }
+     
+    } 
+
+    getType();
+  },[]);
 
   const handleCourseSelect = (course) => {
     setSelectedCourse(course);

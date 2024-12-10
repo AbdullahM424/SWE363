@@ -14,7 +14,7 @@ import SlideNotesPage from "./pages/SlideNotesPage.js";
 import OldExamsPage from "./pages/OldExamsPage.js";
 import ExperiencesPage from "./pages/ExperiencesPage.js";
 function App() {//the root if the application, sees all the changes in the url
-  const isAdmin = true;
+  const isAdmin = false;
   return (
    <div>
       <Router>
@@ -22,15 +22,15 @@ function App() {//the root if the application, sees all the changes in the url
         <Route path = "/home" element = {<Home />}> </Route>
         <Route path = "/" element ={<LoginForm></LoginForm>}></Route>
         <Route path = "/registration" element = {<SignupForm></SignupForm>}></Route>
-        <Route path = '/courses' element = {<CoursePage isAdmin={isAdmin}></CoursePage>}></Route>
+        <Route path = '/courses' element = {<CoursePage intitial={false}></CoursePage>}></Route>
         <Route path ="/clubs" element = {<Clubs></Clubs>}></Route>
         <Route path = "/instructors" element={<Instructors></Instructors>}></Route>
         <Route path =  "/clubProfile" element = {<ClubsProfile></ClubsProfile>}></Route>
         <Route path = "/faq" element = {<FaqPage></FaqPage>}></Route>
         <Route path = "facilities" element = {<Facilities></Facilities>}></Route>
-        <Route path = "/slides" element = {<SlideNotesPage isAdmin={isAdmin}></SlideNotesPage>}></Route>
-        <Route path = "/oldExams" element = {<OldExamsPage isAdmin={isAdmin}></OldExamsPage>}></Route>
-        <Route path = "/experience" element = {<ExperiencesPage isAdmin={isAdmin}></ExperiencesPage>}></Route>
+        <Route path = "/slides" element = {<SlideNotesPage intitial={false}></SlideNotesPage>}></Route>
+        <Route path = "/oldExams" element = {<OldExamsPage intitial={false}></OldExamsPage>}></Route>
+        <Route path = "/experience" element = {<ExperiencesPage intitial={false}></ExperiencesPage>}></Route>
       </Routes>
     </Router>
     

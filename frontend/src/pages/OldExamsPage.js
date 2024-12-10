@@ -6,11 +6,12 @@ import examsIcon from '../assets/images/MatiralStudyImages/exam.png';
 import uploadIcon from '../assets/images/MatiralStudyImages/cloud-computing.png';
 import Header from '../components/common/Header';
 
-const OldExamsPage = ({ isAdmin }) => {
+const OldExamsPage = ({ intitial }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [fileTitle, setFileTitle] = useState('');
   const [fileDescription, setFileDescription] = useState('');
   const [file, setFile] = useState(null);
+  const [isAdmin,setAdmin] = useState(intitial);
 
   const [data, setData] = useState({ "Old Exams": [] });
 
@@ -33,6 +34,30 @@ const OldExamsPage = ({ isAdmin }) => {
         console.error(error);
       }
     };
+    const getType =async ()=>{
+      try{
+        const token = localStorage.getItem("token");
+        const response = await fetch("/api/users/type",{
+          headers:{
+            "x-auth":token
+          },
+        });
+        const data  = await response.json();
+        const type = data.type;
+        console.log(type)
+        if(type==="admin"){
+          setAdmin(true)
+        }
+        else{
+          setAdmin(false)
+        }
+      }
+      catch(err){
+        console.log(err.message)
+      }
+     
+    } 
+    getType()
     fetchExams();
   }, []);
 

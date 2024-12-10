@@ -7,7 +7,7 @@ import uploadIcon from '../assets/images/MatiralStudyImages/cloud-computing.png'
 import UploadExperiences from '../components/UploadExperiences';
 import Header from '../components/common/Header';
 
-const ExperiencesPage = ({ isAdmin }) => {
+const ExperiencesPage = ({ intitial }) => {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedExperience, setSelectedExperience] = useState(null);
@@ -15,6 +15,7 @@ const ExperiencesPage = ({ isAdmin }) => {
   const [experienceDescription, setExperienceDescription] = useState('');
   const [experienceTotal, setExperienceTotal] = useState('');
   const [experiences, setExperiences] = useState([]);
+  const [isAdmin,setAdmin] = useState(intitial);
 
   // Fetch experiences from backend
   useEffect(() => {
@@ -27,7 +28,32 @@ const ExperiencesPage = ({ isAdmin }) => {
       } catch (error) {
         console.error("Error fetching experiences:", error);
       }
-    };
+    };  
+    const getType =async ()=>{
+      try{
+        const token = localStorage.getItem("token");
+        const response = await fetch("/api/users/type",{
+          headers:{
+            "x-auth":token
+          },
+        });
+        const data  = await response.json();
+        const type = data.type;
+        console.log(type)
+        if(type==="admin"){
+          setAdmin(true)
+        }
+        else{
+          setAdmin(false)
+        }
+      }
+      catch(err){
+        console.log(err.message)
+      }
+     
+    } 
+
+    getType();
 
     fetchExperiences();
   }, []);
