@@ -39,7 +39,7 @@ function InstructorModal({ instructor, onClose }) {
                         <label>Knowledge of Subject:</label>
                         <div>{renderStars(rating3, setRating3)}</div>
                     </div>
-                    <button type="submit" className={styles.submitButton}>Submit</button>
+                    <button type="submit" className={styles.submitButton} >Submit</button>
                 </form>
             </div>
         </div>

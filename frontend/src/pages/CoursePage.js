@@ -44,9 +44,44 @@ const CoursePage = ({ intitial }) => {
     getType();
   },[]);
 
+  //Fetch the backnd of the courses
+  useEffect(() => {
+    const fetchCourses = async () => {
+      try {
+        const response = await fetch('/api/courses'); 
+        if (!response.ok) {
+          throw new Error('Failed to fetch courses');
+        }
+        const data = await response.json();
+        setCourses(data); 
+      } catch (error) {
+        console.error('Error fetching courses:', error);
+      }
+    };
+  
+    fetchCourses();
+  }, []);
+  
   const handleCourseSelect = (course) => {
     setSelectedCourse(course);
     window.history.pushState(null, '', window.location.pathname); // Push new history state
+  };
+
+  const handleAddCourse = async (courseName) => {
+    try {
+      const response = await fetch('/api/courses', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ courseName }),
+      });
+      if (!response.ok) {
+        throw new Error('Failed to add course');
+      }
+      const newCourse = await response.json();
+      setCourses((prevCourses) => [...prevCourses, newCourse]);
+    } catch (error) {
+      console.error('Error adding course:', error);
+    }
   };
 
   const handleDeleteClick = (event, course) => {
@@ -55,10 +90,24 @@ const CoursePage = ({ intitial }) => {
     setShowConfirmation(true);
   };
 
-  const confirmDelete = () => {
-    setCourses(courses.filter((course) => course !== courseToDelete));
-    setShowConfirmation(false);
-    setCourseToDelete(null);
+  const confirmDelete = async () => {
+    try {
+      const response = await fetch('/api/courses', {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ courseName: courseToDelete }),
+      });
+      if (!response.ok) {
+        throw new Error('Failed to delete course');
+      }
+      setCourses((prevCourses) =>
+        prevCourses.filter((course) => course !== courseToDelete)
+      );
+      setShowConfirmation(false);
+      setCourseToDelete(null);
+    } catch (error) {
+      console.error('Error deleting course:', error);
+    }
   };
 
   const cancelDelete = () => {
