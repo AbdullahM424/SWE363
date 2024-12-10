@@ -1,9 +1,11 @@
 const express = require('express');
 const router  = express.Router();
 const Course  = require('../models/Course');
+const Experience = require('../models/Experience'); // Experience model
+
 
 //Get all the courses
-router.get("/course", async (req, res)=> {
+router.get("/allCourses", async (req, res)=> {
     try{
     const courses = await Course.find();
     res.json(courses);
@@ -33,19 +35,27 @@ router.post("/", async (req, res)=>{
     }
 });
 
-// Delete a course by the its name
-router.delete("/", async (req, res)=>{
+// Delete a course by its name and its related experiences
+router.delete("/", async (req, res) => {
     const courseName = req.body.courseName;
-    try{
-        const deletedCourse  = await Course.findOneAndDelete({courseName});
-        if(!deletedCourse){
+
+    try {
+        // Delete the course
+        const deletedCourse = await Course.findOneAndDelete({ courseName });
+        if (!deletedCourse) {
             return res.status(404).json({ message: 'The course is not found.' });
         }
-        res.json({ message: 'The course is deleted successfully.' });
-    } catch(error){
-        res.status(500).json({ message: 'Failed to delete the course.', error });
+
+        // Delete experiences related to the course
+        await Experience.deleteMany({ courseName });
+
+        res.json({ message: 'The course and its related experiences are deleted successfully.' });
+    } catch (error) {
+        console.error('Error deleting course and experiences:', error);
+        res.status(500).json({ message: 'Failed to delete the course and experiences.', error });
     }
 });
+
 
 // Delete a course by the id 
 router.delete("/:courseId", async (req, res)=>{

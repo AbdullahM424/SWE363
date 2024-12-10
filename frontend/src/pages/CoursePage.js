@@ -12,7 +12,7 @@ const CoursePage = ({ intitial }) => {
   const navigate = useNavigate()
   const [selectedCourse, setSelectedCourse] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
-  const [courses, setCourses] = useState(["SWE 363", "IAS 212", "ME 210", "ICS 202", "Course XXX"]);
+  const [courses, setCourses] = useState([]);
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [courseToDelete, setCourseToDelete] = useState(null);
   const [isAdmin,setAdmin] = useState(intitial);
@@ -48,7 +48,7 @@ const CoursePage = ({ intitial }) => {
   useEffect(() => {
     const fetchCourses = async () => {
       try {
-        const response = await fetch('/api/courses'); 
+        const response = await fetch('/api/courses/allCourses'); 
         if (!response.ok) {
           throw new Error('Failed to fetch courses');
         }
@@ -67,26 +67,10 @@ const CoursePage = ({ intitial }) => {
     window.history.pushState(null, '', window.location.pathname); // Push new history state
   };
 
-  const handleAddCourse = async (courseName) => {
-    try {
-      const response = await fetch('/api/courses', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ courseName }),
-      });
-      if (!response.ok) {
-        throw new Error('Failed to add course');
-      }
-      const newCourse = await response.json();
-      setCourses((prevCourses) => [...prevCourses, newCourse]);
-    } catch (error) {
-      console.error('Error adding course:', error);
-    }
-  };
 
   const handleDeleteClick = (event, course) => {
     event.stopPropagation();
-    setCourseToDelete(course);
+    setCourseToDelete(course.courseName);
     setShowConfirmation(true);
   };
 
@@ -101,7 +85,7 @@ const CoursePage = ({ intitial }) => {
         throw new Error('Failed to delete course');
       }
       setCourses((prevCourses) =>
-        prevCourses.filter((course) => course !== courseToDelete)
+        prevCourses.filter((course) => course.courseName !== courseToDelete)
       );
       setShowConfirmation(false);
       setCourseToDelete(null);
@@ -126,12 +110,12 @@ const CoursePage = ({ intitial }) => {
   }, []);
 
   const filteredCourses = courses.filter(course =>
-    course.toLowerCase().includes(searchTerm.toLowerCase())
+    course.courseName.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   const goToExperiencePage = () => {
-    
-      navigate('/experience', { state:  "SWE 363"  }); // Pass selectedCourse using state
+      console.log(selectedCourse)
+      navigate('/experience', { state: { courseName: selectedCourse } }); // Pass selectedCourse using state
   
   };
 
@@ -153,9 +137,9 @@ const CoursePage = ({ intitial }) => {
             <div
               key={index}
               className={styles.courseItem}
-              onClick={() => handleCourseSelect(course)}
+              onClick={() => handleCourseSelect(course.courseName)}
             >
-              <span>{course}</span>
+              <span>{course.courseName}</span>
               {isAdmin && (
                 <img
                   src={deleteIcon}

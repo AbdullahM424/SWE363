@@ -1,4 +1,5 @@
-import React, { useState, useEffect,useLocation } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import MaterialItem from '../components/MaterialItem';
 import ExperienceModal from '../components/ExperienceModal';
 import styles from '../assets/styles/MaterialStudy.module.css';
@@ -8,7 +9,8 @@ import UploadExperiences from '../components/UploadExperiences';
 import Header from '../components/common/Header';
 
 const ExperiencesPage = ({ intitial }) => {
-
+  const location = useLocation();
+  const { courseName } = location.state || {};
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedExperience, setSelectedExperience] = useState(null);
   const [experienceTitle, setExperienceTitle] = useState('');
@@ -16,12 +18,12 @@ const ExperiencesPage = ({ intitial }) => {
   const [experienceTotal, setExperienceTotal] = useState('');
   const [experiences, setExperiences] = useState([]);
   const [isAdmin,setAdmin] = useState(intitial);
-
+  console.log(courseName)
   // Fetch experiences from backend
   useEffect(() => {
     const fetchExperiences = async () => {
       try {
-        const response = await fetch(`/api/experiences/SWE 363`); // Adjust endpoint as needed
+        const response = await fetch(`/api/experiences/${courseName}`); // Adjust endpoint as needed
         if (!response.ok) throw new Error("Failed to fetch experiences.");
         const data = await response.json();
         setExperiences(data);
@@ -69,7 +71,7 @@ const ExperiencesPage = ({ intitial }) => {
 
     try {
       const newExperience = {
-        courseName:"SWE 363",
+        courseName:courseName,
         title: experienceTitle,
         description: experienceDescription,
         total: experienceTotal,
