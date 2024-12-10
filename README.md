@@ -7,3 +7,5 @@ The website is created for university students to see the clubs that are offered
 to make the server work, in the root directory type "cd backend" and then "nodemon server.js".
 to make the frontend work, in the root directory type "cd frontend" and then "npm start".
 
+
+MAKE SURE YOU INSTALL THE NEEDED LIBRARIES SUCH AS: nodemon, express, cors, react-router-dom and basically all the dependencies in "package.json" file
