@@ -10,6 +10,7 @@ const courseRoutes = require("./routes/courseRoutes.js");
 //const uploadOldExamsRoute = require('./routes/uploadOldExams');
 const downloadOldExamsRoute = require('./routes/downloadOldExams');
 const InstructorRoute = require("./routes/instructorsRoutes.js");
+const courseRouter = require("./routes/courseRoutes.js");
 
 
 // Middleware
@@ -22,6 +23,8 @@ app.use('/api/courses', courseRoutes);
 //app.use('/upload-old-exams', uploadOldExamsRoute);
 app.use('/download-old-exams', downloadOldExamsRoute);
 app.use('/api/Instructor', InstructorRoute);
+app.use('/api/courses', courseRouter);
+
 
 
 
