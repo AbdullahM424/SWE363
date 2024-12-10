@@ -1,4 +1,4 @@
-import React, { useState, useEffect,useLocation } from 'react';
+import React, { useState, useEffect, useLocation } from 'react';
 import MaterialItem from '../components/MaterialItem';
 import ExperienceModal from '../components/ExperienceModal';
 import styles from '../assets/styles/MaterialStudy.module.css';

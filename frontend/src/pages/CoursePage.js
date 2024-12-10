@@ -54,7 +54,7 @@ const CoursePage = ({ isAdmin }) => {
 
   const goToExperiencePage = () => {
     
-      navigate('/experience', { state:  "SWE 363"  }); // Pass selectedCourse using state
+    navigate('/experience', { state:  "SWE 363"  }); // Pass selectedCourse using state
   
   };
 

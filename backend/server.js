@@ -12,7 +12,7 @@ app.use(cors());
 
 app.use("/api/users",usersRouter);
 //app.use('/api/experiences', experienceRoutes);
-app.use("/api/clubs/", clubRoutes)
+app.use("/api/clubs", clubRoutes)
 
 const startServer = async () => {
     try {

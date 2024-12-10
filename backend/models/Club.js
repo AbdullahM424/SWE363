@@ -4,6 +4,7 @@ const ClubSchema = new mongoose.Schema({
   clubName: {
     type: String,
     required: true,
+    unique: true,
   },
   profileDescription: {
     type: String,
@@ -11,7 +12,6 @@ const ClubSchema = new mongoose.Schema({
   },
   profileImg: {
     type: String,
-    required: true,
   },
   announcements: [
     {
