@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useLocation } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import MaterialItem from '../components/MaterialItem';
 import ExperienceModal from '../components/ExperienceModal';
 import styles from '../assets/styles/MaterialStudy.module.css';
@@ -7,27 +8,54 @@ import uploadIcon from '../assets/images/MatiralStudyImages/cloud-computing.png'
 import UploadExperiences from '../components/UploadExperiences';
 import Header from '../components/common/Header';
 
-const ExperiencesPage = ({ isAdmin }) => {
-
+const ExperiencesPage = ({ intitial }) => {
+  const location = useLocation();
+  const { courseName } = location.state || {};
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedExperience, setSelectedExperience] = useState(null);
   const [experienceTitle, setExperienceTitle] = useState('');
   const [experienceDescription, setExperienceDescription] = useState('');
   const [experienceTotal, setExperienceTotal] = useState('');
   const [experiences, setExperiences] = useState([]);
-
+  const [isAdmin,setAdmin] = useState(intitial);
+  console.log(courseName)
   // Fetch experiences from backend
   useEffect(() => {
     const fetchExperiences = async () => {
       try {
-        const response = await fetch(`/api/experiences/SWE 363`); // Adjust endpoint as needed
+        const response = await fetch(`/api/experiences/${courseName}`); // Adjust endpoint as needed
         if (!response.ok) throw new Error("Failed to fetch experiences.");
         const data = await response.json();
         setExperiences(data);
       } catch (error) {
         console.error("Error fetching experiences:", error);
       }
-    };
+    };  
+    const getType =async ()=>{
+      try{
+        const token = localStorage.getItem("token");
+        const response = await fetch("/api/users/type",{
+          headers:{
+            "x-auth":token
+          },
+        });
+        const data  = await response.json();
+        const type = data.type;
+        console.log(type)
+        if(type==="admin"){
+          setAdmin(true)
+        }
+        else{
+          setAdmin(false)
+        }
+      }
+      catch(err){
+        console.log(err.message)
+      }
+     
+    } 
+
+    getType();
 
     fetchExperiences();
   }, []);
@@ -43,7 +71,7 @@ const ExperiencesPage = ({ isAdmin }) => {
 
     try {
       const newExperience = {
-        courseName:"SWE 363",
+        courseName:courseName,
         title: experienceTitle,
         description: experienceDescription,
         total: experienceTotal,

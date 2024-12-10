@@ -14,7 +14,8 @@ router.post("/register",async (req,res)=>{
         const user = new User({
             "username":username,
             "email":email,
-            "password":password
+            "password":password,
+            "type":"normal"
         });
         const payload = {"email":email};
         const token = jwt.encode(payload,SECRET_KEY);
@@ -44,6 +45,25 @@ router.post("/login",async (req,res)=>{
     }
 });
 
+
+router.get("/type",async (req,res)=>{
+    try{
+        if (!req.headers["x-auth"]) {
+            return res.status(404).json({error: "Missing X-Auth header"});
+         }
+        const token = req.headers["x-auth"];
+        const decoded = jwt.decode(token, SECRET_KEY);
+
+        const user = await User.findOne({"email":decoded.email});
+        console.log(user)
+        const type = user.type;
+        console.log(type)
+         return res.status(200).json({"type":type}); 
+    }
+    catch(err){
+        return res.status(500).json({err:err.message});
+    }
+})
 
 
 module.exports = router;

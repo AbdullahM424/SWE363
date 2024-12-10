@@ -47,8 +47,6 @@ router.get("/getclub/:clubName", async (req, res)=>{
   }
 })
 
-
-
 router.put("/updateclub/:clubName", async (req, res) => {
   try {
     const theclubName = req.params.clubName;
@@ -78,7 +76,6 @@ router.put("/updateclub/:clubName", async (req, res) => {
     res.status(500).json({ message: 'Internal server error' });
   }
 });
-
 
 
 module.exports = router;

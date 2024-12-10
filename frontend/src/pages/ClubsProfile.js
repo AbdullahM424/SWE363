@@ -49,7 +49,7 @@ const ClubeProfile = () => {
     if (clubName) {
       fetchClubDetails();
     }
-  }, [clubName]);
+  }, [clubName, isRotated]);
 
   const handleSave = async (data) => {
     try {

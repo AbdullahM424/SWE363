@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import MaterialItem from '../components/MaterialItem';
 import UploadFile from '../components/UploadFile';
 import styles from '../assets/styles/MaterialStudy.module.css';
@@ -6,12 +6,12 @@ import slidesIcon from '../assets/images/MatiralStudyImages/book.png';
 import uploadIcon from '../assets/images/MatiralStudyImages/upload.png';
 import Header from '../components/common/Header';
 
-const SlideNotesPage = ({  isAdmin }) => {
+const SlideNotesPage = ({ intitial }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [fileTitle, setFileTitle] = useState('');
   const [fileDescription, setFileDescription] = useState('');
   const [file, setFile] = useState(null);
-
+  const [isAdmin,setAdmin] = useState(intitial);
   // Dummy data and icon selection
   const [data, setData] = useState({
     "Slides Notes": [
@@ -27,6 +27,33 @@ const SlideNotesPage = ({  isAdmin }) => {
       { title: "Slide Note 10", url: "Description of Slide Note 2" },
     ]
   });
+  useEffect(()=>{
+    const getType =async ()=>{
+      try{
+        const token = localStorage.getItem("token");
+        const response = await fetch("/api/users/type",{
+          headers:{
+            "x-auth":token
+          },
+        });
+        const data  = await response.json();
+        const type = data.type;
+        console.log(type)
+        if(type==="admin"){
+          setAdmin(true)
+        }
+        else{
+          setAdmin(false)
+        }
+      }
+      catch(err){
+        console.log(err.message)
+      }
+     
+    } 
+
+    getType();
+  },[]);
 
   const icons = {
     "Slides Notes": slidesIcon,
