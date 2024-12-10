@@ -45,6 +45,7 @@ const LoginForm = () => {
             
     }
     }
+    
     return (
         <div className={style.thePage}>
             <div className={style.theBody}>

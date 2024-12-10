@@ -3,7 +3,7 @@ import MaterialItem from '../components/MaterialItem';
 import UploadFile from '../components/UploadFile';
 import styles from '../assets/styles/MaterialStudy.module.css';
 import slidesIcon from '../assets/images/MatiralStudyImages/book.png';
-import uploadIcon from '../assets/images/MatiralStudyImages/upload.png';
+import uploadIcon from '../assets/images/MatiralStudyImages/cloud-computing.png';
 import Header from '../components/common/Header';
 
 const SlideNotesPage = ({ intitial }) => {
@@ -23,8 +23,6 @@ const SlideNotesPage = ({ intitial }) => {
       { title: "Slide Note 6", url: "Description of Slide Note 2" },
       { title: "Slide Note 7", url: "Description of Slide Note 1" },
       { title: "Slide Note 8", url: "Description of Slide Note 2" },
-      { title: "Slide Note 9", url: "Description of Slide Note 1" },
-      { title: "Slide Note 10", url: "Description of Slide Note 2" },
     ]
   });
   useEffect(()=>{

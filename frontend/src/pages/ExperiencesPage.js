@@ -163,7 +163,7 @@ const ExperiencesPage = ({ intitial }) => {
         />
       )}
 
-      {isAdmin && (
+      { (
         <div className={styles.uploadSection}>
           <span className={styles.uploadText}>
             <b>Do you have an experience to share?</b>
