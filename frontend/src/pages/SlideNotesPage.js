@@ -1,119 +1,123 @@
-import React, { useState,useEffect } from 'react';
-import MaterialItem from '../components/MaterialItem';
-import UploadFile from '../components/UploadFile';
-import styles from '../assets/styles/MaterialStudy.module.css';
-import slidesIcon from '../assets/images/MatiralStudyImages/book.png';
-import uploadIcon from '../assets/images/MatiralStudyImages/cloud-computing.png';
-import Header from '../components/common/Header';
+import React, { useState, useEffect } from "react";
+import MaterialItem from "../components/MaterialItem";
+import UploadFile from "../components/UploadFile";
+import styles from "../assets/styles/MaterialStudy.module.css";
+import slidesIcon from "../assets/images/MatiralStudyImages/book.png";
+import uploadIcon from "../assets/images/MatiralStudyImages/cloud-computing.png";
+import Header from "../components/common/Header";
 
 const SlideNotesPage = ({ intitial }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [fileTitle, setFileTitle] = useState('');
-  const [fileDescription, setFileDescription] = useState('');
+  const [fileTitle, setFileTitle] = useState("");
+  const [fileDescription, setFileDescription] = useState("");
   const [file, setFile] = useState(null);
-  const [isAdmin,setAdmin] = useState(intitial);
-  // Dummy data and icon selection
-  const [data, setData] = useState({
-    "Slides Notes": [
-      { title: "Slide Note 1", url: "Description of Slide Note 1" },
-      { title: "Slide Note 2", url: "Description of Slide Note 2" },
-      { title: "Slide Note 3", url: "Description of Slide Note 1" },
-      { title: "Slide Note 4", url: "Description of Slide Note 2" },
-      { title: "Slide Note 5", url: "Description of Slide Note 1" },
-      { title: "Slide Note 6", url: "Description of Slide Note 2" },
-      { title: "Slide Note 7", url: "Description of Slide Note 1" },
-      { title: "Slide Note 8", url: "Description of Slide Note 2" },
-    ]
-  });
-  useEffect(()=>{
-    const getType =async ()=>{
-      try{
-        const token = localStorage.getItem("token");
-        const response = await fetch("/api/users/type",{
-          headers:{
-            "x-auth":token
-          },
-        });
-        const data  = await response.json();
-        const type = data.type;
-        console.log(type)
-        if(type==="admin"){
-          setAdmin(true)
-        }
-        else{
-          setAdmin(false)
-        }
-      }
-      catch(err){
-        console.log(err.message)
-      }
-     
-    } 
+  const [isAdmin, setAdmin] = useState(intitial);
+  const [data, setData] = useState({ "Slides Notes": [] });
 
-    getType();
-  },[]);
-
-  const icons = {
-    "Slides Notes": slidesIcon,
+  // Fetch slides from the server
+  const fetchSlides = async () => {
+    try {
+      const response = await fetch("/api/slides");
+      if (!response.ok) throw new Error("Failed to fetch slides");
+      const slides = await response.json();
+      setData({ "Slides Notes": slides });
+    } catch (error) {
+      console.error("Failed to fetch slides:", error.message);
+    }
   };
 
-  const handleDelete = (index) => {
-    const newData = data["Slides Notes"].filter((_, i) => i !== index);
-    setData({ ...data, ["Slides Notes"]: newData });
-  };
+  // Run fetchSlides on component mount
+  useEffect(() => {
+    fetchSlides();
+  }, []);
 
-  const handleDownload = (item) => {
-    const fileContent = `Title: ${item.title}\nDescription: ${item.url}`;
-    const blob = new Blob([fileContent], { type: "text/plain" });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = `${item.title}.txt`;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    URL.revokeObjectURL(url);
-  };
-
-  const handleFormSubmit = (e) => {
+  // Form submission for uploading a file
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
-    setFileTitle('');
-    setFileDescription('');
-    setFile(null);
-    setIsModalOpen(false);
+
+    if (!file || !fileTitle) {
+      alert("All fields are required");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("title", fileTitle);
+    formData.append("description", fileDescription);
+    formData.append("file", file);
+
+    try {
+      const response = await fetch("/api/slides/upload", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!response.ok) throw new Error("Failed to upload file");
+
+      alert("File uploaded successfully!");
+      fetchSlides(); // Refresh the slides list after upload
+      setFileTitle("");
+      setFileDescription("");
+      setFile(null);
+      setIsModalOpen(false);
+    } catch (error) {
+      console.error("Error uploading file:", error.message);
+      alert("Failed to upload the file");
+    }
+  };
+
+  // Handle delete functionality
+  const handleDelete = async (id) => {
+    try {
+      const response = await fetch(`/api/slides/${id}`, { method: "DELETE" });
+      if (!response.ok) throw new Error("Failed to delete the slide");
+      alert("Slide deleted successfully!");
+      fetchSlides(); // Refresh the slides list after delete
+    } catch (error) {
+      console.error("Error deleting slide:", error.message);
+      alert("Failed to delete the slide");
+    }
+  };
+
+  // Handle download functionality
+  const handleDownload = (fileUrl, title) => {
+    const link = document.createElement("a");
+    link.href = fileUrl;
+    link.download = title || "file";
+    link.click();
   };
 
   return (
     <div className={styles.main}>
-        <Header></Header> 
+      <Header />
       <div className={styles.itemList}>
-        {data["Slides Notes"].map((item, index) => (
-          <MaterialItem
-            key={index}
-            item={item}
-            index={index}
-            icon={icons["Slides Notes"]}
-            isAdmin={isAdmin}
-            layoutType={"Slides Notes"}
-            onDelete={handleDelete}
-            onDownload={handleDownload}
-            onOpenModal={null}
+        {data["Slides Notes"].length > 0 ? (
+          data["Slides Notes"].map((item, index) => (
+            <MaterialItem
+              key={index}
+              item={item}
+              icon={slidesIcon}
+              isAdmin={isAdmin}
+              onDelete={() => handleDelete(item._id)}
+              onDownload={() => handleDownload(item.fileUrl, item.title)}
+            />
+          ))
+        ) : (
+          <p>No slides available</p>
+        )}
+      </div>
+      {isAdmin && (
+        <div className={styles.uploadSection}>
+          <span className={styles.uploadText}>
+            <b>Do you want to upload a file?</b>
+          </span>
+          <img
+            src={uploadIcon}
+            alt="Upload icon"
+            className={styles.uploadIcon}
+            onClick={() => setIsModalOpen(true)}
           />
-        ))}
-      </div>
-
-      <div className={styles.uploadSection}>
-        <span className={styles.uploadText}>
-          <b>Do you want to upload a file?</b>
-        </span>
-        <img
-          src={uploadIcon}
-          alt="Upload icon"
-          className={styles.uploadIcon}
-          onClick={() => setIsModalOpen(true)}
-        />
-      </div>
-
+        </div>
+      )}
       <UploadFile
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
