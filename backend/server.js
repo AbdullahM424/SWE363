@@ -37,7 +37,7 @@ app.use("/api/slides", slidesRoutes);
 const startServer = async () => {
     try {
       await connectDB(); // Ensure the database connection is established
-      app.listen(PORT, () => {
+      app.listen(PORT, '::',() => {
         console.log(`Server running on http://localhost:${PORT}`);
 
       });
