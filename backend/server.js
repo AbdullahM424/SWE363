@@ -5,14 +5,20 @@ const cors = require('cors');
 const app = express();
 const PORT = 8080;
 const usersRouter = require("./routes/userRoutes.js");
-const clubRoutes = require("./routes/clubRoutes.js")
+const experienceRoutes =require("./routes/experienceRoutes.js");
+const courseRoutes = require("./routes/courseRoutes.js");
+const uploadOldExamsRoute = require('./routes/uploadOldExams');
+const downloadOldExamsRoute = require('./routes/downloadOldExams');
+const InstructorRoute = require("./routes/instructorsRoutes.js");
+
+
 // Middleware
 app.use(express.json());
 app.use(cors());
 
 app.use("/api/users",usersRouter);
-//app.use('/api/experiences', experienceRoutes);
-app.use("/api/clubs", clubRoutes)
+app.use('/api/experiences', experienceRoutes);
+
 
 const startServer = async () => {
     try {
