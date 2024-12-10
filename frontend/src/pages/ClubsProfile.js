@@ -36,6 +36,7 @@ const ClubeProfile = () => {
         setName(data.clubName);
         setDescription(data.profileDescription);
         setProfileImageUrl(data.profileImg);
+        setAnnouncementsData(data.announcements);
         setSocialMedia({
           whatsapp: data.socialMediaContacts.find(contact => contact.platform === 'WhatsApp')?.url || '',
           instagram: data.socialMediaContacts.find(contact => contact.platform === 'Instagram')?.url || '',
@@ -49,7 +50,7 @@ const ClubeProfile = () => {
     if (clubName) {
       fetchClubDetails();
     }
-  }, [clubName, isRotated]);
+  }, [clubName]);
 
   const handleSave = async (data) => {
     try {
@@ -77,10 +78,31 @@ const ClubeProfile = () => {
     }
   };
 
-  const handleAddAnnouncement = (e) => {
+  const handleAddAnnouncement = async (e) => {
     e.preventDefault();
-    setAnnouncementsData([...announcementsData, newAnnouncement]);
-    setNewAnnouncement({ title: "", content: "" });
+
+    try {
+      const response = await fetch(`/api/clubs/addannouncement/${clubName}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(newAnnouncement),
+      });
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      const result = await response.json();
+      console.log('Success:', result);
+      // Update the local state with the new announcement
+      setAnnouncementsData([...announcementsData, newAnnouncement]);
+      setNewAnnouncement({ title: "", content: "" });
+
+    } catch (error) {
+      console.error('Error adding announcement:', error);
+    }
   };
 
   return (
@@ -105,7 +127,7 @@ const ClubeProfile = () => {
             <div className={styles.addAnnouncement}>
               <form onSubmit={handleAddAnnouncement}>
                 <label>
-                  <input
+                  <input 
                     type="text"
                     value={newAnnouncement.title}
                     placeholder="Add Announcement Title"

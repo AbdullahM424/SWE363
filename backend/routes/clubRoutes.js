@@ -40,7 +40,7 @@ router.get("/getclub/:clubName", async (req, res)=>{
     if(!club){
       return res.status(404).json({message:"Club not found"});
     }
-    res.json(club);
+    res.json(club);  
   }catch(error){
     console.error('Error retrieving club information:', err.message);
     res.status(500).send('Server Error: ' + err.message);
@@ -74,6 +74,26 @@ router.put("/updateclub/:clubName", async (req, res) => {
   } catch (error) {
     console.error('Error updating club:', error);
     res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+router.post('/addannouncement/:clubName', async (req, res) => {
+  const { clubName } = req.params;
+  const { title, content } = req.body; 
+console.log(title, content)
+  try {
+    const club = await Club.findOne({ clubName });
+    if (!club) {
+      return res.status(404).json({ message: 'Club not found' });
+    }
+
+    club.announcements.push({ title, description: content });
+    await club.save();
+
+    res.status(200).json({ message: 'Announcement added successfully', club });
+    console.log("added")
+  } catch (error) {
+    res.status(500).json({ message: 'Error adding announcement', error });
   }
 });
 
