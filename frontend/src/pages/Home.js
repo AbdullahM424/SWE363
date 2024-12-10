@@ -33,6 +33,7 @@ function Home(){
                 <Link to="/clubs" style={{ textDecoration: 'none' }}>
                     <Category title="Clubs" />
                 </Link>
+                
                 <Link to ="/courses" style={{ textDecoration: 'none' }}>
                 <Category title = "Courses"></Category>
                 </Link>

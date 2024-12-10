@@ -13,6 +13,9 @@ import CoursePage from './pages/CoursePage.js';
 import SlideNotesPage from "./pages/SlideNotesPage.js";
 import OldExamsPage from "./pages/OldExamsPage.js";
 import ExperiencesPage from "./pages/ExperiencesPage.js";
+import NewClub from "./pages/NewClub.js"
+import { ClubProvider } from './components/ClubContext.js';
+
 function App() {//the root if the application, sees all the changes in the url
   const isAdmin = false;
   return (
@@ -31,6 +34,7 @@ function App() {//the root if the application, sees all the changes in the url
         <Route path = "/slides" element = {<SlideNotesPage intitial={false}></SlideNotesPage>}></Route>
         <Route path = "/oldExams" element = {<OldExamsPage intitial={false}></OldExamsPage>}></Route>
         <Route path = "/experience" element = {<ExperiencesPage intitial={false}></ExperiencesPage>}></Route>
+        <Route  path = "/newClub" element = {<ClubProvider ><NewClub></NewClub></ClubProvider>}></Route>
       </Routes>
     </Router>
     

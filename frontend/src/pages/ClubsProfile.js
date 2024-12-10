@@ -1,54 +1,108 @@
-import styles from "../assets/styles/ClubeProfile.module.css";
+import React, { useState, useEffect } from 'react';
 import { FaWhatsapp, FaInstagram } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
-import React, { useState } from 'react';
+import { MdEdit } from "react-icons/md";
+import { useLocation } from "react-router-dom";
 import Announcement from "../components/Announcement";
 import Accordion from 'react-bootstrap/Accordion';
 import Header from "../components/common/Header.js";
 import defaultImg from "../assets/images/clubeProfileImg.png";
-import { MdEdit } from "react-icons/md";
+import styles from "../assets/styles/ClubeProfile.module.css";
+import NewClub from './NewClub.js';
+import { ClubProvider } from '../components/ClubContext.js';
 
 const ClubeProfile = () => {
+  const location = useLocation();
+  const clubName = location.state?.clubName || '';
+
   const [socialMedia, setSocialMedia] = useState({ whatsapp: "", instagram: "", twitter: "" });
-  const [name, setName] = useState('');
-  const [description, setDescription] = useState('the description of the club...');
-  const [profileImage, setProfileImage] = useState(null);
+  const [name, setName] = useState(clubName);
+  const [description, setDescription] = useState('');
+  const [profileImageUrl, setProfileImageUrl] = useState('');
   const [isRotated, setIsRotated] = useState(false);
   const [isFlipping, setIsFlipping] = useState(false);
 
-  const [announcementsData, setAnnouncementsData] = useState([
-    { title: "Announcement 1", content: "This is the first announcement." },
-    { title: "Announcement 2", content: "This is the second announcement." },
-    { title: "Announcement 3", content: "This is the third announcement." },
-  ]);
-
+  const [announcementsData, setAnnouncementsData] = useState([]);
   const [newAnnouncement, setNewAnnouncement] = useState({ title: "", content: "" });
 
-  const handleSave = (e) => {
-    e.preventDefault();
-    setIsFlipping(true);
+  useEffect(() => {
+    const fetchClubDetails = async () => {
+      try {
+        const response = await fetch(`/api/clubs/getclub/${clubName}`);
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+        setName(data.clubName);
+        setDescription(data.profileDescription);
+        setProfileImageUrl(data.profileImg);
+        setAnnouncementsData(data.announcements);
+        setSocialMedia({
+          whatsapp: data.socialMediaContacts.find(contact => contact.platform === 'WhatsApp')?.url || '',
+          instagram: data.socialMediaContacts.find(contact => contact.platform === 'Instagram')?.url || '',
+          twitter: data.socialMediaContacts.find(contact => contact.platform === 'Twitter')?.url || '',
+        });
+      } catch (error) {
+        console.error('Error fetching club details:', error);
+      }
+    };
 
-    setTimeout(() => {
-      setIsRotated(false);
-      setIsFlipping(false);
-    }, 600);
-  };
+    if (clubName) {
+      fetchClubDetails();
+    }
+  }, [clubName]);
 
-  const handlePhotoUpload = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setProfileImage(URL.createObjectURL(file));
+  const handleSave = async (data) => {
+    try {
+      const response = await fetch(`/api/clubs/updateclub/${clubName}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      const result = await response.json();
+      console.log('Success:', result);
+      setTimeout(() => {
+        setIsRotated(false);
+        setIsFlipping(false);
+      }, 600);
+
+    } catch (error) {
+      console.error('Error:', error);
     }
   };
 
-  const handleSocialMediaChange = (platform, value) => {
-    setSocialMedia((prev) => ({ ...prev, [platform]: value }));
-  };
-
-  const handleAddAnnouncement = (e) => {
+  const handleAddAnnouncement = async (e) => {
     e.preventDefault();
-    setAnnouncementsData([...announcementsData, newAnnouncement]);
-    setNewAnnouncement({ title: "", content: "" });
+
+    try {
+      const response = await fetch(`/api/clubs/addannouncement/${clubName}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(newAnnouncement),
+      });
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      const result = await response.json();
+      console.log('Success:', result);
+      // Update the local state with the new announcement
+      setAnnouncementsData([...announcementsData, newAnnouncement]);
+      setNewAnnouncement({ title: "", content: "" });
+
+    } catch (error) {
+      console.error('Error adding announcement:', error);
+    }
   };
 
   return (
@@ -59,7 +113,7 @@ const ClubeProfile = () => {
           <div>
             <div className={styles.theCard}>
               <div className={styles.theImg}>
-                <img src={profileImage || defaultImg} alt="The club Logo" />
+                <img src={profileImageUrl || defaultImg} alt="The club Logo" />
               </div>
               <p className={styles.name}>{name}</p>
               <p className={styles.description}>{description}</p>
@@ -73,7 +127,7 @@ const ClubeProfile = () => {
             <div className={styles.addAnnouncement}>
               <form onSubmit={handleAddAnnouncement}>
                 <label>
-                  <input
+                  <input 
                     type="text"
                     value={newAnnouncement.title}
                     placeholder="Add Announcement Title"
@@ -102,71 +156,21 @@ const ClubeProfile = () => {
             </div>
           </div>
         ) : (
-          <div className={styles.formCard}>
-            <form onSubmit={handleSave}>
-              <label>
-                <input
-                  type="text"
-                  value={name}
-                  placeholder="The Club Name"
-                  onChange={(e) => setName(e.target.value)}
-                />
-              </label>
-
-              <label>
-                <textarea
-                  value={description}
-                  cols="50"
-                  rows="10"
-                  onChange={(e) => setDescription(e.target.value)}
-                />
-              </label>
-
-              <label>
-                <input
-                  type="file"
-                  onChange={handlePhotoUpload}
-                  accept="image/*"
-                />
-              </label>
-
-              <label>
-                <FaWhatsapp />
-                <input
-                  type="text"
-                  value={socialMedia.whatsapp}
-                  onChange={(e) => handleSocialMediaChange("whatsapp", e.target.value)}
-                  placeholder="WhatsApp Link"
-                />
-              </label>
-              
-              <label>
-                <FaInstagram />
-                <input
-                  type="text"
-                  value={socialMedia.instagram}
-                  onChange={(e) => handleSocialMediaChange("instagram", e.target.value)}
-                  placeholder="Instagram Link"
-                />
-              </label>
-
-              <label>
-                <FaXTwitter />
-                <input
-                  type="text"
-                  value={socialMedia.twitter}
-                  onChange={(e) => handleSocialMediaChange("twitter", e.target.value)}
-                  placeholder="X Link"
-                />
-              </label>
-
-              <button type="submit">Save</button>
-            </form>
-          </div>
+          <ClubProvider handleSave={handleSave}>
+            <NewClub
+              isEditing={true}
+              initialData={{
+                name,
+                description,
+                profileImageUrl,
+                socialMedia,
+              }}
+            />
+          </ClubProvider>
         )}
       </div>
       <button className={styles.editButt} onClick={() => setIsRotated(!isRotated)}>
-        <MdEdit /> Edit Profile
+        <MdEdit /> {!isRotated ? "Edit Profile" : "See Update"}
       </button>
     </div>
   );
